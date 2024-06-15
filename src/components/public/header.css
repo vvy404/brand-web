@@ -1,0 +1,9 @@
+.display-ani {
+    max-height: 1000px;
+    transition: all 0.5s ease-in-out;
+}
+.hide-ani {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.8s ease-in-out;
+}
