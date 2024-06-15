@@ -30,18 +30,18 @@ export default function Header() {
     }
     
     return (
-        <div>
-            <div className="flex">
+        <div className="header-comp absolute top-0 left-0 w-full z-100">
+            <div className="flex h-12 items-center">
                 {Object.keys(listDataConf).map(li => {
                     return (
-                        <div className="flex-initial w-24"
+                        <div className="flex-initial w-24 text-center"
                             onMouseOver={handleMouseOver}
                             onMouseLeave={handleMouseLeave}
                         >{li}</div>
                     )
                 })}
             </div>
-            <div className={`${isContentVisible? 'display-ani': 'hide-ani'} "w-full bg-white border-0 border-b-2 border-black border-solid absolute left-0 top-4"`}
+            <div className={`${isContentVisible? 'display-ani': 'hide-ani'} "w-full bg-white border-0 border-b-2 border-black border-solid absolute left-0 top-12 z-999"`}
                 onMouseOver={handleMouseOver}
                 onMouseLeave={handleMouseLeave}
             >

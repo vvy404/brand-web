@@ -7,3 +7,6 @@
     overflow: hidden;
     transition: all 0.8s ease-in-out;
 }
+.header-comp {
+    z-index: 100;
+}
