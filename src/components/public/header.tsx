@@ -32,9 +32,10 @@ export default function Header() {
     return (
         <div className="header-comp absolute top-0 left-0 w-full z-100">
             <div className="flex h-12 items-center">
-                {Object.keys(listDataConf).map(li => {
+                {Object.keys(listDataConf).map((li, index) => {
                     return (
                         <div className="flex-initial w-24 text-center"
+                            key={index}
                             onMouseOver={handleMouseOver}
                             onMouseLeave={handleMouseLeave}
                         >{li}</div>
