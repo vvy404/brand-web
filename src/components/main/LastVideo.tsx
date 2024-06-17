@@ -15,7 +15,7 @@ export default function LastVideo() {
     return (
         <div className="mb-10">
             <div className="text-center py-20 text-4xl text-gray-700">COS × TABATA SHIBORI</div>
-            <div className='h-[42rem] overflow-hidden'>
+            <div className='h-[48rem] overflow-hidden'>
                 <video
                     className="absolute object-cover z-2 opacity-90 w-4/5 ml-[10%]"
                     src="/c.mov"

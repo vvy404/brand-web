@@ -31,3 +31,7 @@ body {
     text-wrap: balance;
   }
 }
+
+body:has(#__next .set-bg-indigo-50-on-body) {
+  @apply overflow-hidden;
+}

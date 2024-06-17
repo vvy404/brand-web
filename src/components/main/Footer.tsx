@@ -85,7 +85,7 @@ export default function Footer() {
                     })
                 }
             </div>
-            <button className="absolute right-[30px] top-0 w-40 h-10 bg-black text-white text-[14px]">subscribe</button>
+            <button className="absolute right-[60px] top-0 w-40 h-10 bg-black text-white text-[14px]">subscribe</button>
         </div>
     )
 }

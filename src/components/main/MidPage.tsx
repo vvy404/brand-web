@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 export default function MidPage() {
     return (
         <div className={`${inter.className} "midpage-comp mt-12"`}>
-            <div className="text-center text-2xl w-full h-12 mt-3">SUMMER 2024</div>
+            <div className="text-center text-2xl w-full h-12 mt-16 mb-3">SUMMER 2024</div>
             <div className="image-group flex items-center px-28">
                 <div className="image-item flex-auto text-left">
                     <Image
