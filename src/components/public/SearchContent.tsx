@@ -1,4 +1,6 @@
 import Image from "next/image"
+
+
 export default function SearchContent() {
     return (
         <div className="text-center mt-[30px] color-[#1b1b1b] mx-28 mb-2">
