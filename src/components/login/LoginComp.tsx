@@ -10,7 +10,8 @@ export default function LoginComp() {
     }
     const renderSignUp = () => {
         return (
-            <div className={`${closeBtnState ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
+            // <div className={`${closeBtnState ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
+            <div className={`${true ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
                 <Popup isShow={true} width={32}>
                     <div className='px-6 pt-12 pb-6'>
                         <div className='text-[22px]'>SIGN UP AND RECEIVE 10% OFF YOUR FIRST ORDER</div>
@@ -44,8 +45,9 @@ export default function LoginComp() {
     }
     const renderSignIn = () => {
         return (
-            <div className={`${closeBtnState ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
-                <Popup isShow={true} width={20}>
+            // <div className={`${closeBtnState ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
+            <div className={`${true ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
+                <Popup isShow={false} width={20}>
                     <div className='px-6 py-10'>
                         <div className='flex justify-between'>
                             <div className='text-xs'>Sign in</div>

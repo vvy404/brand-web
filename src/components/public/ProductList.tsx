@@ -43,7 +43,7 @@ export default function ProductList() {
 
             </div>
             <Paginator></Paginator>
-            <div className="h-1 mt-16 pb-2 border-t border-solid border-gray-200"></div>
+            {/* <div className="h-1 mt-16 pb-2 border-t border-solid border-gray-200"></div> */}
 
         </div>
     )

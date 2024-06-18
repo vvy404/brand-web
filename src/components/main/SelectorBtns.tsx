@@ -41,7 +41,7 @@ export default function SelectorBtns() {
                 }
 
             </div>
-            <div className="h-1 mt-20 mx-8 pb-2 border-t border-solid border-gray-200"></div>
+            {/* <div className="h-1 mt-20 mx-8 pb-2 border-t border-solid border-gray-200"></div> */}
         </div>
     )
 }

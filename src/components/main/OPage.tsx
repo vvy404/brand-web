@@ -5,7 +5,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function OPage() {
     return (
-        <div className={`${inter.className} "OPage-Component px-8 py-12"`}>
+        <div className={`${inter.className} OPage-Component px-8 py-24`}>
             <div className="flex">
                 <div className="relative image-group flex-auto w-full">
                     <Image

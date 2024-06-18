@@ -70,6 +70,8 @@ const footerConf = [
 export default function Footer() {
     return (
         <div className="relative">
+            <div className="h-1 mt-32 pb-2 border-t border-solid border-gray-200"></div>
+
             <div className="flex mt-7 ml-[30px] mb-24">
                 {
                     footerConf.map((list, id) => {
@@ -85,7 +87,7 @@ export default function Footer() {
                     })
                 }
             </div>
-            <button className="absolute right-[60px] top-0 w-40 h-10 bg-black text-white text-[14px]">subscribe</button>
+            <button className="absolute right-[60px] top-14 w-40 h-10 bg-black text-white text-[14px]">subscribe</button>
         </div>
     )
 }

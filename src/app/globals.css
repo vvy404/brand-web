@@ -43,3 +43,10 @@ body:has(#__next .set-bg-indigo-50-on-body) {
 .search-btn-selected {
   @apply text-white bg-black;
 }
+
+.image-small-list::-webkit-scrollbar {
+  display: none; /* Chrome Safari */
+}
+.image-swiper-comp .swiper-button-prev, .image-swiper-comp .swiper-button-next {
+  color: white !important;
+}
