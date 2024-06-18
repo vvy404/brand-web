@@ -49,7 +49,7 @@ export default function LoginComp() {
                     <div className='px-6 py-10'>
                         <div className='flex justify-between'>
                             <div className='text-xs'>Sign in</div>
-                            <div className='text-xs text-[#767676]'>New customer</div>
+                            <div className='text-xs text-[#767676] max-lg:text-red-900'>New customer</div>
                         </div>
                         <div className="h-1 mt-[4px] mb-4 pb-2 border-t border-solid border-gray-200"></div>
                         <div className='text-xs'>Email</div>
@@ -61,7 +61,7 @@ export default function LoginComp() {
                             <div className='text-xs'>Stay signed in</div>
                         </div>
                         <button className="bg-black text-white w-full h-[44px] text-xs mb-4">SIGN IN</button>
-                        <div className='text-xs text-[#767676] text-center'>Can't remember your password?</div>
+                        <div className='text-xs text-[#767676] text-center hover:text-red-900'>Can't remember your password?</div>
                     </div>
                 </Popup>
             </div>

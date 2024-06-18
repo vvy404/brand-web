@@ -35,3 +35,11 @@ body {
 body:has(#__next .set-bg-indigo-50-on-body) {
   @apply overflow-hidden;
 }
+
+.search-content-btn {
+  @apply border border-gray-950 text-[13px] leading-[36px] mr-2 px-4 my-2
+}
+
+.search-btn-selected {
+  @apply text-white bg-black;
+}

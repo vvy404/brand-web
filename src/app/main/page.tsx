@@ -5,7 +5,7 @@ import OPage from "@/components/main/OPage"
 import MidPage from "@/components/main/MidPage"
 import LastVideo from "@/components/main/LastVideo"
 import SelectorBtns from "@/components/main/SelectorBtns"
-import Footer from "@/components/main/Footer"
+import Footer from "@/components/public/Footer"
 import LoginComp from "@/components/login/LoginComp"
 
 import './page.css'
