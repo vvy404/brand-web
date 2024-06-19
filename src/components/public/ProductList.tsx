@@ -1,6 +1,6 @@
 import Image from "next/image"
 import productArr from "./productarr"
-import Paginator from "./ Paginator"
+import Paginator from "./Paginator"
 
 export default function ProductList() {
     return (
