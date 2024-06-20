@@ -1,7 +1,6 @@
 import SearchContent from "@/components/public/SearchContent"
 import Filter from "@/components/public/Filter"
 import ProductList from "@/components/public/ProductList"
-import Footer from "@/components/public/Footer"
 
 export default function Products() {
     return (
@@ -9,7 +8,6 @@ export default function Products() {
             <SearchContent></SearchContent>
             <Filter></Filter>
             <ProductList></ProductList>
-            <Footer></Footer>
         </div>
     )
 }

@@ -2,7 +2,6 @@ import ImageDetail from "@/components/detail/ImageDetail"
 import ProductInfos from "@/components/detail/ProductInfos"
 import Recommend from "@/components/detail/Recommend"
 import OtherReco from "@/components/detail/OtherReco"
-import Footer from "@/components/public/Footer"
 
 export default function Detail() {
     return (
@@ -13,7 +12,6 @@ export default function Detail() {
             </div>
             <Recommend></Recommend>
             <OtherReco></OtherReco>
-            <Footer></Footer>
         </div>
     )
 }
