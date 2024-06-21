@@ -4,7 +4,9 @@ const prisma = new PrismaClient();
 
  
 type ResponseData = {
+  code: number
   message: string
+  data: any
 }
 
 const initialPosts = [
@@ -24,8 +26,11 @@ export default async function handler(
   //     data: post,
   //   });
   // }
-    const notes = await prisma.note.findMany();
-
-  res.status(200).json({ message: 'Hello from Next.js!' + notes.length });
+  const notes = await prisma.note.findMany();
+  res.status(200).json({
+    code: 0,
+    message: 'Hello from Next.js!',
+    data: notes,
+  });
 
 }

@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import OPage from "@/components/main/OPage"
 import MidPage from "@/components/main/MidPage"
@@ -8,9 +8,23 @@ import SelectorBtns from "@/components/main/SelectorBtns"
 import Footer from "@/components/public/Footer"
 import LoginComp from "@/components/login/LoginComp"
 
+import { getData } from "@/apis/main";
+
 import './page.css'
 export default function Index() {
     const [ isMaskVisable, setMaskVisible ] = useState(true);
+    useEffect(() => {
+      const getDataFunc = async () => {
+        const res = await getData();
+        console.log('ress------', res);
+
+        return res;
+      }
+      getDataFunc();
+      return () => {
+        console.log('clean up')
+      }
+    }, []);
 
     return (
         <div className={`${isMaskVisable ? "overflow-body": ""} "o-page bg-white"`}>
