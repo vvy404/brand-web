@@ -13,23 +13,25 @@ import { getData } from "@/apis/main";
 import './page.css'
 export default function Index() {
     const [ isMaskVisable, setMaskVisible ] = useState(true);
+    const [ opageList, setOpageList ] = useState([]);
+    const [ midpageList, setMidpageList ] = useState([]);
+
     useEffect(() => {
       const getDataFunc = async () => {
         const res = await getData();
         console.log('ress------', res);
-
-        return res;
+        if (res && res.code===0 && res.data) {
+          setOpageList(res.data.mainpageconf);
+          setMidpageList(res.data.midpageconf);
+        }
       }
       getDataFunc();
-      return () => {
-        console.log('clean up')
-      }
     }, []);
 
     return (
         <div className={`${isMaskVisable ? "overflow-body": ""} "o-page bg-white"`}>
-            <OPage></OPage>
-            <MidPage></MidPage>
+            <OPage list={opageList}></OPage>
+            <MidPage list={midpageList}></MidPage>
             <LastVideo></LastVideo>
             <SelectorBtns></SelectorBtns>
             <Footer></Footer>

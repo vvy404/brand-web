@@ -1,20 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
- 
 type ResponseData = {
   code: number
   message: string
   data: any
 }
 
-const initialPosts = [
-  { name: 'Post 1' },
-  { name: 'Post 2' },
-  { name: 'Post 3' },
-];
- 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
@@ -26,11 +18,19 @@ export default async function handler(
   //     data: post,
   //   });
   // }
-  const notes = await prisma.note.findMany();
+  const products = await prisma.product.findMany();
+  const mainPageConf = await prisma.mainPageImageConfig.findMany();
+  const midPageConf = await prisma.midPageImageConfig.findMany();
+
   res.status(200).json({
     code: 0,
-    message: 'Hello from Next.js!',
-    data: notes,
+    message: 'success!',
+    data: {
+      mainpageconf: mainPageConf,
+      midpageconf: midPageConf,
+      mainlist: products,
+      newlist: products,
+    },
   });
 
 }

@@ -14,11 +14,102 @@ datasource db {
 }
 
 model Note {
-  id  Int @id @default(autoincrement())
+  id   Int    @id @default(autoincrement())
   name String
 }
 
-model Post {
-  id      String   @id @default(cuid())
-  name    String
+model User {
+  id      Int      @id @default(autoincrement())
+  email   String   @unique
+  name    String?
+  role    String
+  orders  Order[]
+  profile Profile?
+}
+
+model Profile {
+  id     Int    @id @default(autoincrement())
+  bio    String
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @unique
+}
+
+model Order {
+  id           Int             @id @default(autoincrement())
+  user         User            @relation(fields: [userId], references: [id])
+  userId       Int
+  createdAt    DateTime        @default(now())
+  paymentAt    DateTime
+  totalPrice   Int
+  orderContent OrderCategory[]
+}
+
+model OrderCategory {
+  id          Int    @id @default(autoincrement())
+  order       Order  @relation(fields: [orderId], references: [id])
+  orderId     Int
+  imageSrc    String
+  title       String
+  total       Int
+  color       String
+  singlePrice Int
+  totalPrice  Int
+}
+
+model Product {
+  id         Int            @id @default(autoincrement())
+  ismainimg  Boolean        @default(false)
+  imgSrc     String
+  title      String
+  price      Int
+  type       Int
+  typeName   String
+  isInStock  Boolean        @default(true)
+  color      ProductColor[]
+  isLiked    Boolean        @default(false)
+  isNew      Boolean        @default(false)
+  stocknum   Int
+  createtime DateTime       @default(now())
+  ProductImg ProductImg[]
+}
+
+model ProductSize {
+  id       Int          @id @default(autoincrement())
+  color    ProductColor @relation(fields: [colorid], references: [id])
+  colorid  Int
+  size     String
+  stocknum Int
+}
+
+model ProductColor {
+  id          Int           @id @default(autoincrement())
+  product     Product       @relation(fields: [productid], references: [id])
+  productid   Int
+  color       String
+  img         String
+  availblenum Int
+  ProductSize ProductSize[]
+}
+
+model ProductImg {
+  id         Int     @id @default(autoincrement())
+  product    Product @relation(fields: [productid], references: [id])
+  productid  Int
+  imgSrc     String
+  color      String
+  ismainpage Boolean @default(false)
+}
+
+model MainPageImageConfig {
+  id      Int    @id @default(autoincrement())
+  imgSrc  String
+  btnText String
+  link    String
+}
+
+model MidPageImageConfig {
+  id     Int    @id @default(autoincrement())
+  imgSrc String
+  title  String
+  link   String
 }
