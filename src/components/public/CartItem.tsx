@@ -1,16 +1,21 @@
 import Image from "next/image"
+import { CartItemType } from "@/lib/globalts"
 
-export default function CartItem() {
+interface CartItemProps {
+  cartitem: CartItemType
+}
+
+const CartItem : React.FC<CartItemProps> = ({cartitem}) => {
     return (
         <div className="flex justify-between">
             <div className="flex mt-3 mb-7">
                 <div>
-                    <Image src="/a.jpeg" alt="pic" width={100} height={100} className="w-[84px] mr-4" />
+                    <Image src={cartitem.imgSrc} alt="pic" width={100} height={100} className="w-[84px] mr-4" />
                 </div>
                 <div className="text-xs">
-                    <div>CURVED-HEM SHORT-SLEEVED DENIM SHIRT</div>
-                    <div className="pt-1">1000 SEK</div>
-                    <div className="pt-2 pb-3 text-[#325D7B]">ORGANIC COTTON</div>
+                    <div>{cartitem.title}</div>
+                    <div className="pt-1">{cartitem.price} SEK</div>
+                    <div className="pt-2 pb-3 text-[#325D7B]">{cartitem.madeof}</div>
                     <div className="flex leading-[18px]">
                         <div>
                             <div>Size</div>
@@ -18,9 +23,9 @@ export default function CartItem() {
                             <div>Quantity</div>
                         </div>
                         <div className="px-4">
-                            <div>XS</div>
-                            <div>White</div>
-                            <input type="number" value={1} />
+                            <div>{cartitem.size}</div>
+                            <div>{cartitem.color}</div>
+                            <input type="number" value={cartitem.quantity} />
                         </div>
                     </div>
                 </div>
@@ -34,3 +39,4 @@ export default function CartItem() {
         </div>
     )
 }
+export default CartItem;

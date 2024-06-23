@@ -57,38 +57,43 @@ model OrderCategory {
 }
 
 model Product {
-  id         Int            @id @default(autoincrement())
-  ismainimg  Boolean        @default(false)
-  imgSrc     String
-  title      String
-  price      Int
-  type       Int
-  typeName   String
-  isInStock  Boolean        @default(true)
-  color      ProductColor[]
-  isLiked    Boolean        @default(false)
-  isNew      Boolean        @default(false)
-  stocknum   Int
-  createtime DateTime       @default(now())
-  ProductImg ProductImg[]
+  id           Int            @id @default(autoincrement())
+  ismainimg    Boolean        @default(false)
+  imgSrc       String
+  title        String
+  price        Int
+  type         Int
+  typeName     String
+  madeof       String
+  isInStock    Boolean        @default(true)
+  color        ProductColor[]
+  isLiked      Boolean        @default(false)
+  isNew        Boolean        @default(false)
+  stocknum     Int
+  createtime   DateTime       @default(now())
+  lastviewtime DateTime       @default(now())
+  ProductImg   ProductImg[]
+  CartItem     CartItem[]
+  ProductSize  ProductSize[]
 }
 
 model ProductSize {
-  id       Int          @id @default(autoincrement())
-  color    ProductColor @relation(fields: [colorid], references: [id])
-  colorid  Int
-  size     String
-  stocknum Int
+  id        Int        @id @default(autoincrement())
+  Product   Product    @relation(fields: [productid], references: [id])
+  productid Int
+  size      String
+  stocknum  Int
+  CartItem  CartItem[]
 }
 
 model ProductColor {
-  id          Int           @id @default(autoincrement())
-  product     Product       @relation(fields: [productid], references: [id])
+  id          Int        @id @default(autoincrement())
+  product     Product    @relation(fields: [productid], references: [id])
   productid   Int
   color       String
   img         String
   availblenum Int
-  ProductSize ProductSize[]
+  CartItem    CartItem[]
 }
 
 model ProductImg {
@@ -114,4 +119,21 @@ model MidPageImageConfig {
   title      String
   link       String
   createtime DateTime @default(now())
+}
+
+model CartItem {
+  id           Int          @id @default(autoincrement())
+  Product      Product      @relation(fields: [productid], references: [id])
+  productid    Int
+  ProductColor ProductColor @relation(fields: [colorid], references: [id])
+  colorid      Int
+  ProductSize  ProductSize  @relation(fields: [sizeid], references: [id])
+  sizeid       Int
+  quantity     Int
+  imgSrc       String
+  title        String
+  madeof       String
+  price        Int
+  size         String
+  color        String
 }

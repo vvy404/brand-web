@@ -19,6 +19,7 @@ const initialPosts = [
     "isNew": false,
     "stocknum": 0,
     "price": 1000,
+    "madeof": "cotton",
   },
   {
     "ismainimg": false,
@@ -31,6 +32,7 @@ const initialPosts = [
     "isNew": false,
     "stocknum": 0,
     "price": 1000,
+    "madeof": "cotton",
   },
   {
     "ismainimg": false,
@@ -43,6 +45,7 @@ const initialPosts = [
     "isNew": false,
     "stocknum": 0,
     "price": 1000,
+    "madeof": "cotton",
   }
 ];
 
@@ -120,17 +123,17 @@ const initialProductColor = [
 
 const initialProductSize = [
   {
-    "colorid": 1,
+    "productid": 1,
     "size": "1",
     "stocknum": 1,
   },
   {
-    "colorid": 1,
+    "productid": 1,
     "size": "3",
     "stocknum": 1,
   },
   {
-    "colorid": 1,
+    "productid": 1,
     "size": "5",
     "stocknum": 1,
   }
@@ -164,6 +167,68 @@ const midpage = [
   
 ]
 
+const cart = [
+  {
+    productid: 1,
+    colorid:1,
+    sizeid:2,
+    quantity:1,
+    imgSrc: '/a.jpeg',
+    title: 'title',
+    madeof: 'cotton',
+    price: 1000,
+    size: "1",
+    color: 'red',
+  },
+  {
+    productid: 1,
+    colorid:1,
+    sizeid:1,
+    quantity:1,
+    imgSrc: '/a.jpeg',
+    title: 'title',
+    madeof: 'cotton',
+    price: 1000,
+    size: "1",
+    color: 'red',
+  },
+  {
+    productid: 1,
+    colorid:1,
+    sizeid:3,
+    quantity:1,
+    imgSrc: '/a.jpeg',
+    title: 'title',
+    madeof: 'cotton',
+    price: 1000,
+    size: "1",
+    color: 'red',
+  },{
+    productid: 1,
+    colorid:2,
+    sizeid:1,
+    quantity:1,
+    imgSrc: '/a.jpeg',
+    title: 'title',
+    madeof: 'cotton',
+    price: 1000,
+    size: "1",
+    color: 'red',
+  },
+  {
+    productid: 1,
+    colorid:3,
+    sizeid:1,
+    quantity:1,
+    imgSrc: '/a.jpeg',
+    title: 'title',
+    madeof: 'cotton',
+    price: 1000,
+    size: "1",
+    color: 'red',
+  }
+]
+
 
  
 export default async function handler(
@@ -172,58 +237,57 @@ export default async function handler(
 ) {
 // products
 
-  // for (const post of initialPosts) {
-  //   await prisma.product.create({
-  //     data: post,
-  //   });
-  // }
-  // for (const post of initialPosts) {
-  //   await prisma.product.update({
-  //     data: {
-  //       createtime: new Date(),
-  //     },
-  //     where: {
-  //       id : 1
-  //     }
-  //   });
-  // }
-  // const products = await prisma.product.findMany();
+  for (const post of initialPosts) {
+    await prisma.product.create({
+      data: post,
+    });
+  }
+  const products = await prisma.product.findMany();
 
 
-// // productImgs
-//   for (const post of initialProductImgs) {
-//     await prisma.productImg.create({
-//       data: post,
-//     });
-//   }
+// productImgs
+  for (const post of initialProductImgs) {
+    await prisma.productImg.create({
+      data: post,
+    });
+  }
 //   const products = await prisma.productImg.findMany();
 
 
-  // // productColors
-  // for (const post of initialProductColor) {
-  //   await prisma.productColor.create({
-  //     data: post,
-  //   });
-  // }
+  // productColors
+  for (const post of initialProductColor) {
+    await prisma.productColor.create({
+      data: post,
+    });
+  }
   // const products = await prisma.productColor.findMany();
 
 
 
-  // // productSize
-  // for (const post of initialProductSize) {
-  //   await prisma.productSize.create({
-  //     data: post,
-  //   });
-  // }
+  // productSize
+  for (const post of initialProductSize) {
+    await prisma.productSize.create({
+      data: post,
+    });
+  }
   // const products = await prisma.productSize.findMany();
 
 
-  // // mainpage
-  // for (const post of mainpage) {
-  //   await prisma.mainPageImageConfig.create({
-  //     data: post,
-  //   });
-  // }
+  // mainpage
+  for (const post of mainpage) {
+    await prisma.mainPageImageConfig.create({
+      data: post,
+    });
+  }
+  // const products = await prisma.mainPageImageConfig.findMany();
+
+
+  // cart
+  for (const post of cart) {
+    await prisma.cartItem.create({
+      data: post,
+    });
+  }
   // const products = await prisma.mainPageImageConfig.findMany();
 
 
@@ -233,7 +297,7 @@ export default async function handler(
       data: post,
     });
   }
-  const products = await prisma.midPageImageConfig.findMany();
+  // const products = await prisma.midPageImageConfig.findMany();
 
   res.status(200).json({ message: 'Hello from Next.js!' + products.length });
 

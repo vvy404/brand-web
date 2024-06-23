@@ -21,7 +21,7 @@ export default async function handler(
       productid: 1,
     }
   });
-  const colorIds = productColors.map(i => i.id);
+  const productIds = product?.id ;
   const productImgs = await prisma.productImg.findMany({
     where: {
       productid: 1,
@@ -30,9 +30,7 @@ export default async function handler(
 
   const productSizes = await prisma.productSize.findMany({
     where: {
-      colorid: {
-        in: colorIds
-      },
+      productid: productIds,
     }
   });
   
