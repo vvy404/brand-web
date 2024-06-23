@@ -2,26 +2,18 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import Link from "next/link";
 
+import { MainProductType } from "@/lib/globalts";
+
 const inter = Inter({ subsets: ["latin"] });
 
-type ImgDataItem = {
-  id: number;
-  imgSrc: string;
-  btnText: string;
-  link: string;
-}
-type ImgDataList = ImgDataItem[];
 type OPageProps = {
-  list: ImgDataList,
+  list: MainProductType[],
 }
 
 export default function OPage({
   list
 }: OPageProps
 ) {
-
-  console.log('props', list);
-
   return (
     <div className={`${inter.className} OPage-Component px-8 py-24`}>
       <div className="flex">

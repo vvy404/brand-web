@@ -5,16 +5,17 @@ import OPage from "@/components/main/OPage"
 import MidPage from "@/components/main/MidPage"
 import LastVideo from "@/components/main/LastVideo"
 import SelectorBtns from "@/components/main/SelectorBtns"
-import Footer from "@/components/public/Footer"
 import LoginComp from "@/components/login/LoginComp"
 
 import { getData } from "@/apis/main";
+import { MainProductType, MidProductType } from '@/lib/globalts';
 
 import './page.css'
-export default function Index() {
+
+const Index : React.FC = () => {
     const [ isMaskVisable, setMaskVisible ] = useState(true);
-    const [ opageList, setOpageList ] = useState([]);
-    const [ midpageList, setMidpageList ] = useState([]);
+    const [ opageList, setOpageList ] = useState<MainProductType[]>([]);
+    const [ midpageList, setMidpageList ] = useState<MidProductType[]>([]);
 
     useEffect(() => {
       const getDataFunc = async () => {
@@ -34,10 +35,10 @@ export default function Index() {
             <MidPage list={midpageList}></MidPage>
             <LastVideo></LastVideo>
             <SelectorBtns></SelectorBtns>
-            <Footer></Footer>
             <div id="__next">
                 <LoginComp></LoginComp>
             </div>
         </div>
     )
 }       
+export default Index

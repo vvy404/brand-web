@@ -24,6 +24,7 @@ export interface ProductType {
   isInStock: boolean;
   isLiked: boolean;
   isNew: boolean;
+  price: number;
 };
 
 export interface ResponseAjaxType {
@@ -42,4 +43,19 @@ export type AjaxResType<T, E> = {
 export interface ProductInfoType extends ProductType {
   color: ProductColorType[],
   size: ProductSizeType[],
+}
+
+// mainpage
+export interface MainProductType {
+  id: number;
+  imgSrc: string;
+  btnText: string;
+  link: string;
+}
+
+export interface MidProductType {
+  id: number;
+  imgSrc: string;
+  title: string;
+  link: string;
 }

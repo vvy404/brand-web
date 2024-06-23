@@ -28,8 +28,8 @@ export default async function handler(
     data: {
       mainpageconf: mainPageConf,
       midpageconf: midPageConf,
-      mainlist: products,
-      newlist: products,
+      // mainlist: products,
+      // newlist: products,
     },
   });
 

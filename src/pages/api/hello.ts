@@ -136,6 +136,34 @@ const initialProductSize = [
   }
 ]
 
+const mainpage = [
+  {
+    "imgSrc": "/a.jpeg",
+    "btnText": "red",
+    "link": "http://localhost:3000/detail"
+  },
+  {
+    "imgSrc": "/a.jpeg",
+    "btnText": "red",
+    "link": "http://localhost:3000/detail"
+  },
+  
+]
+
+const midpage = [
+  {
+    "imgSrc": "/b.jpeg",
+    "title": "red",
+    "link": "http://localhost:3000/detail"
+  },
+  {
+    "imgSrc": "/b.jpeg",
+    "title": "red",
+    "link": "http://localhost:3000/detail"
+  },
+  
+]
+
 
  
 export default async function handler(
@@ -144,11 +172,11 @@ export default async function handler(
 ) {
 // products
 
-  for (const post of initialPosts) {
-    await prisma.product.create({
-      data: post,
-    });
-  }
+  // for (const post of initialPosts) {
+  //   await prisma.product.create({
+  //     data: post,
+  //   });
+  // }
   // for (const post of initialPosts) {
   //   await prisma.product.update({
   //     data: {
@@ -159,7 +187,7 @@ export default async function handler(
   //     }
   //   });
   // }
-  const products = await prisma.product.findMany();
+  // const products = await prisma.product.findMany();
 
 
 // // productImgs
@@ -188,6 +216,24 @@ export default async function handler(
   //   });
   // }
   // const products = await prisma.productSize.findMany();
+
+
+  // // mainpage
+  // for (const post of mainpage) {
+  //   await prisma.mainPageImageConfig.create({
+  //     data: post,
+  //   });
+  // }
+  // const products = await prisma.mainPageImageConfig.findMany();
+
+
+  // midpage
+  for (const post of midpage) {
+    await prisma.midPageImageConfig.create({
+      data: post,
+    });
+  }
+  const products = await prisma.midPageImageConfig.findMany();
 
   res.status(200).json({ message: 'Hello from Next.js!' + products.length });
 

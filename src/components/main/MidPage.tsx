@@ -1,17 +1,11 @@
 import { Inter } from "next/font/google";
-
 import Image from 'next/image';
+import { MidProductType } from "@/lib/globalts";
+
 const inter = Inter({ subsets: ["latin"] });
 
-type ImgDataItem = {
-  id: number;
-  imgSrc: string;
-  title: string;
-  link: string;
-}
-type ImgDataList = ImgDataItem[];
 type MidPageProps = {
-  list: ImgDataList,
+  list: MidProductType[],
 }
 
 
