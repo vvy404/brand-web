@@ -101,15 +101,17 @@ model ProductImg {
 }
 
 model MainPageImageConfig {
-  id      Int    @id @default(autoincrement())
-  imgSrc  String
-  btnText String
-  link    String
+  id         Int      @id @default(autoincrement())
+  imgSrc     String
+  btnText    String
+  link       String
+  createtime DateTime @default(now())
 }
 
 model MidPageImageConfig {
-  id     Int    @id @default(autoincrement())
-  imgSrc String
-  title  String
-  link   String
+  id         Int      @id @default(autoincrement())
+  imgSrc     String
+  title      String
+  link       String
+  createtime DateTime @default(now())
 }

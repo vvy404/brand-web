@@ -1,32 +1,8 @@
 const sizeRange = [1, 2, 3, 4, 5, 6];
-type ProductColor = {
-  id: number;
-  color: string;
-  availblenum: number;
-  img?: string;
-}
-
-type ProductSize = {
-  id: number;
-  productid: number;
-  size: string;
-  stockNum?: number;
-}
-
-type Product = {
-  id: number;
-  imgSrc: string;
-  title: string;
-  type: number;
-  isInStock: boolean;
-  isLiked: boolean;
-  isNew: boolean;
-  color: ProductColor[];
-  size: ProductSize[];
-}
+import { ProductType, ProductImgType, ProductColorType, ProductSizeType, ProductInfoType } from "@/lib/globalts"
 
 type ProductInfoProps = {
-  info: Product | null,
+  info: ProductInfoType | null,
 }
 export default function ProductInfos({
   info
@@ -57,7 +33,7 @@ export default function ProductInfos({
                 <button className="w-9 h-9 border bg-black text-white">{size.size}</button>
                 <span className="px-4">total: </span>
                 <input type="number" step="1" className="border w-20 h-6" />
-                <span className="px-4">{size.stockNum ? `${size.stockNum}in stock` : ""}</span>
+                <span className="px-4">{size.stocknum ? `${size.stocknum}in stock` : ""}</span>
               </div>
             )
           })

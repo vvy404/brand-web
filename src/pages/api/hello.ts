@@ -19,6 +19,30 @@ const initialPosts = [
     "isNew": false,
     "stocknum": 0,
     "price": 1000,
+  },
+  {
+    "ismainimg": false,
+    "imgSrc": "/a.jpeg",
+    "title": "CURVED-HEM SHORT-SLEEVED DENIM SHIRT",
+    "type": 1,
+    "typeName": "women",
+    "isInStock": true,
+    "isLiked": false,
+    "isNew": false,
+    "stocknum": 0,
+    "price": 1000,
+  },
+  {
+    "ismainimg": false,
+    "imgSrc": "/b.jpeg",
+    "title": "CURVED-HEM SHORT-SLEEVED DENIM SHIRT",
+    "type": 2,
+    "typeName": "women",
+    "isInStock": true,
+    "isLiked": false,
+    "isNew": false,
+    "stocknum": 0,
+    "price": 1000,
   }
 ];
 
@@ -120,11 +144,11 @@ export default async function handler(
 ) {
 // products
 
-  // for (const post of initialPosts) {
-  //   await prisma.product.create({
-  //     data: post,
-  //   });
-  // }
+  for (const post of initialPosts) {
+    await prisma.product.create({
+      data: post,
+    });
+  }
   // for (const post of initialPosts) {
   //   await prisma.product.update({
   //     data: {
@@ -135,7 +159,7 @@ export default async function handler(
   //     }
   //   });
   // }
-  // const products = await prisma.product.findMany();
+  const products = await prisma.product.findMany();
 
 
 // // productImgs
@@ -157,13 +181,13 @@ export default async function handler(
 
 
 
-  // productSize
-  for (const post of initialProductSize) {
-    await prisma.productSize.create({
-      data: post,
-    });
-  }
-  const products = await prisma.productSize.findMany();
+  // // productSize
+  // for (const post of initialProductSize) {
+  //   await prisma.productSize.create({
+  //     data: post,
+  //   });
+  // }
+  // const products = await prisma.productSize.findMany();
 
   res.status(200).json({ message: 'Hello from Next.js!' + products.length });
 

@@ -3,12 +3,10 @@ import Image from "next/image";
 // const images = [
 //     "/a.jpeg", "/b.jpeg", "/a.jpeg", "/b.jpeg", "/a.jpeg", "/b.jpeg", "/a.jpeg", "/b.jpeg", "/a.jpeg", "/b.jpeg",
 // ];
-type ImgSingle = {
-  id: number;
-  imgSrc: string;
-}
+import { ProductType, ProductImgType, ProductColorType, ProductSizeType, ProductInfoType } from "@/lib/globalts"
+
 type ImageProps = {
-  imgs: ImgSingle[]
+  imgs: ProductImgType[]
   mainImg: string
   isLike?: boolean
 }

@@ -8,11 +8,17 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 // import 'swiper/css/scrollbar';
 
+import { ProductType, ProductImgType, ProductColorType, ProductSizeType, ProductInfoType } from "@/lib/globalts"
+
+interface ImageSwiperProps {
+  list: ProductType[];
+}
+
 const images = [
     "/a.jpeg", "/b.jpeg", "/a.jpeg", "/b.jpeg", "/a.jpeg", "/b.jpeg", "/a.jpeg", "/b.jpeg", "/a.jpeg", "/b.jpeg",
 ];
 
-export default function ImageSwiper() {
+const ImageSwiper : React.FC<ImageSwiperProps> = ({list=[]}) => {
     return (
         <div className='image-swiper-comp'>
             <Swiper
@@ -26,12 +32,12 @@ export default function ImageSwiper() {
                 onSwiper={(swiper) => console.log(swiper)}
             >
                 {
-                    images.map((img, idx) => {
+                    list.map((img) => {
                         return (
                             <SwiperSlide>
-                                <Image src={img} alt="img" width={100} height={100} className='w-full' />
-                                <div className='text-[11px] text-gray-600 mt-2'>CURVED-HEM SHORT-SLEEVED DENIM SHIRT</div>
-                                <div className='text-[11px] text-gray-600'>1000 SEK</div>
+                                <Image key={img.id} src={img.imgSrc} alt="img" width={100} height={100} className='w-full' />
+                                <div className='text-[11px] text-gray-600 mt-2'>{img.title}</div>
+                                <div className='text-[11px] text-gray-600'>${img.price} SEK</div>
                             </SwiperSlide>
                         )
                     })
@@ -40,3 +46,5 @@ export default function ImageSwiper() {
         </div>
     )
 }
+
+export default ImageSwiper;
