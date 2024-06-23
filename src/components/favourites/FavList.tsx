@@ -1,7 +1,40 @@
 import Image from "next/image"
 import productArr from "./productarr"
+import { ProductType } from "@/lib/globalts"
 
-export default function FavList() {
+interface FavListProps {
+  list: ProductType[];
+}
+
+const FavList : React.FC<FavListProps> = ({list}) => {
+  const treemap = (arr: any[]) => {
+    let res = [];
+    let col1 = [];
+    let col2 = [];
+    let col3 = [];
+    let col4 = [];
+    for (let i = 0; i<arr.length; i++) {
+      if (i % 4 === 0) {
+        col1.push(arr[i]);
+      }
+      if (i % 4 === 1) {
+        col2.push(arr[i]);
+      }
+      if (i % 4 === 2) {
+        col3.push(arr[i]);
+      }
+      if (i % 4 === 3) {
+        col4.push(arr[i]);
+      }
+    }
+    res.push(col1);
+    res.push(col2);
+    res.push(col3);
+    res.push(col4);
+    return res;
+  }
+  const finalArr = treemap(list);
+  console.log('---finalArr', finalArr);
     return (
         <div>
             <div className="flex flex-col items-center mb-16">
@@ -10,14 +43,14 @@ export default function FavList() {
             </div>
             <div className="grid grid-cols-4 gap-6">
                 {
-                    productArr.map((plist,idx) => {
+                    finalArr.map((plist,idx) => {
                         return (
                             <div key={idx} className="column col-span-1">
                                 {plist.map(i => {
                                     return (
                                         <div className="flex flex-col relative mb-14 text-xs">
                                             <div className="image-group w-full relative">
-                                                <Image src={i.imageSrc} alt="pic" width={100} height={150} className="w-full" />
+                                                <Image src={i.imgSrc} alt="pic" width={100} height={150} className="w-full" />
 
                                             </div>
                                             <div className="text-[11px] mt-4">{i.title}</div>
@@ -53,3 +86,4 @@ export default function FavList() {
         </div>
     )
 }
+export default FavList;
