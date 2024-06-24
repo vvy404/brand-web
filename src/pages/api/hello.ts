@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
- 
+
 type ResponseData = {
   message: string
 }
@@ -150,7 +150,7 @@ const mainpage = [
     "btnText": "red",
     "link": "http://localhost:3000/detail"
   },
-  
+
 ]
 
 const midpage = [
@@ -164,15 +164,15 @@ const midpage = [
     "title": "red",
     "link": "http://localhost:3000/detail"
   },
-  
+
 ]
 
 const cart = [
   {
     productid: 1,
-    colorid:1,
-    sizeid:2,
-    quantity:1,
+    colorid: 1,
+    sizeid: 2,
+    quantity: 1,
     imgSrc: '/a.jpeg',
     title: 'title',
     madeof: 'cotton',
@@ -182,9 +182,9 @@ const cart = [
   },
   {
     productid: 1,
-    colorid:1,
-    sizeid:1,
-    quantity:1,
+    colorid: 1,
+    sizeid: 1,
+    quantity: 1,
     imgSrc: '/a.jpeg',
     title: 'title',
     madeof: 'cotton',
@@ -194,20 +194,20 @@ const cart = [
   },
   {
     productid: 1,
-    colorid:1,
-    sizeid:3,
-    quantity:1,
+    colorid: 1,
+    sizeid: 3,
+    quantity: 1,
     imgSrc: '/a.jpeg',
     title: 'title',
     madeof: 'cotton',
     price: 1000,
     size: "1",
     color: 'red',
-  },{
+  }, {
     productid: 1,
-    colorid:2,
-    sizeid:1,
-    quantity:1,
+    colorid: 2,
+    sizeid: 1,
+    quantity: 1,
     imgSrc: '/a.jpeg',
     title: 'title',
     madeof: 'cotton',
@@ -217,9 +217,9 @@ const cart = [
   },
   {
     productid: 1,
-    colorid:3,
-    sizeid:1,
-    quantity:1,
+    colorid: 3,
+    sizeid: 1,
+    quantity: 1,
     imgSrc: '/a.jpeg',
     title: 'title',
     madeof: 'cotton',
@@ -229,13 +229,32 @@ const cart = [
   }
 ]
 
+const user = [
+  {
+    email: "wy@gmail.com",
+    name: "wangye--1",
+    phone: "18801201739",
+    role: "level1",
+    roleType: 1,
+    isSubscribed: true,
+  },
+  {
+    email: "wy@gmail.com",
+    name: "wangye--1",
+    phone: "18801201739",
+    role: "level1",
+    roleType: 2,
+    isSubscribed: true,
+  }
+]
 
- 
+
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-// products
+  // products
 
   for (const post of initialPosts) {
     await prisma.product.create({
@@ -245,13 +264,13 @@ export default async function handler(
   const products = await prisma.product.findMany();
 
 
-// productImgs
+  // productImgs
   for (const post of initialProductImgs) {
     await prisma.productImg.create({
       data: post,
     });
   }
-//   const products = await prisma.productImg.findMany();
+  //   const products = await prisma.productImg.findMany();
 
 
   // productColors
@@ -294,6 +313,13 @@ export default async function handler(
   // midpage
   for (const post of midpage) {
     await prisma.midPageImageConfig.create({
+      data: post,
+    });
+  }
+
+  // midpage
+  for (const post of user) {
+    await prisma.user.create({
       data: post,
     });
   }

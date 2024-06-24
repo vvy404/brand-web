@@ -5,13 +5,13 @@ export interface ProductImgType {
 };
 
 export interface ProductColorType {
-  id : number;
+  id: number;
   color: string;
   availblenum: number;
 }
 
 export interface ProductSizeType {
-  id : number;
+  id: number;
   size: string;
   stocknum: number;
 }
@@ -28,7 +28,7 @@ export interface ProductType {
 };
 
 export interface ResponseAjaxType {
-  code : number;
+  code: number;
   data: any
 }
 
@@ -58,4 +58,33 @@ export interface MidProductType {
   imgSrc: string;
   title: string;
   link: string;
+}
+
+export interface DefaultErrorType {
+  errorcode: number;
+}
+
+// cart
+
+export interface CartItemType {
+  id: number;
+  imgSrc: string;
+  title: string;
+  price: number;
+  madeof: string;
+  size: string;
+  sizeid: number;
+  productid: number;
+  colorid: number;
+  color: string;
+  quantity: number;
+}
+
+export interface UserType {
+  id: number;
+  email: string;
+  name: string;
+  phone: string;
+  role: string;
+  roletype: number;
 }

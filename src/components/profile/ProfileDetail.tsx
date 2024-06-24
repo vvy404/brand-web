@@ -1,18 +1,24 @@
-export default function ProfileDetail() {
+import { UserType } from "@/lib/globalts"
+
+interface ProfileDetailProps {
+  info: UserType
+}
+
+const ProfileDetail: React.FC<ProfileDetailProps> = ({info}) => {
     return (
         <div className="text-[#1b1b1b] text-sm">
           <div>MY DETAILS</div>
             <div className="mt-6">
                 <div className="text-gray-500">Name</div>
-                <div className="leading-6">I'm WANGYE</div>
+                <div className="leading-6">{info.name}</div>
             </div>
             <div className="mt-6">
                 <div className="text-gray-500">E-mail</div>
-                <div className="leading-6">wye2455@gmail.com</div>
+                <div className="leading-6">{info.email}</div>
             </div>
             <div className="mt-6">
                 <div className="text-gray-500">Mobile phone number</div>
-                <div className="leading-6">I'm WANGYE</div>
+                <div className="leading-6">{info.phone}</div>
             </div>
             <div className="mt-6">
                 <div className="text-gray-500">Newsletter</div>
@@ -23,3 +29,4 @@ export default function ProfileDetail() {
         </div>  
     )
 }
+export default ProfileDetail;
