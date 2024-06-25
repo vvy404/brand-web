@@ -17,27 +17,28 @@ const Index : React.FC = () => {
     const [ opageList, setOpageList ] = useState<MainProductType[]>([]);
     const [ midpageList, setMidpageList ] = useState<MidProductType[]>([]);
 
-    useEffect(() => {
-      const getDataFunc = async () => {
-        const res = await getData();
-        console.log('ress------', res);
-        if (res && res.code===0 && res.data) {
-          setOpageList(res.data.mainpageconf);
-          setMidpageList(res.data.midpageconf);
-        }
+    const getDataFunc = async () => {
+      const res = await getData();
+      console.log('ress------', res);
+      if (res && res.code===0 && res.data) {
+        setOpageList(res.data.mainpageconf);
+        setMidpageList(res.data.midpageconf);
       }
+    }
+
+    useEffect(() => {
       getDataFunc();
     }, []);
 
     return (
-        <div className={`${isMaskVisable ? "overflow-body": ""} "o-page bg-white"`}>
+        <div className={`o-page bg-white`}>
             <OPage list={opageList}></OPage>
             <MidPage list={midpageList}></MidPage>
             <LastVideo></LastVideo>
             <SelectorBtns></SelectorBtns>
-            <div id="__next">
+            {/* <div id="__next">
                 <LoginComp></LoginComp>
-            </div>
+            </div> */}
         </div>
     )
 }       

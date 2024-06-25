@@ -235,7 +235,7 @@ const user = [
     name: "wangye--1",
     phone: "18801201739",
     role: "level1",
-    roleType: 1,
+    roletype: 1,
     isSubscribed: true,
   },
   {
@@ -243,11 +243,128 @@ const user = [
     name: "wangye--1",
     phone: "18801201739",
     role: "level1",
-    roleType: 2,
+    roletype: 2,
     isSubscribed: true,
   }
 ]
 
+const order = [
+  {
+    userId: 1,
+    paymentAt: new Date(),
+    totalPrice: 1000,
+    statusType: 1,
+    statusText: "done",
+  },
+  {
+    userId: 1,
+    paymentAt: new Date(),
+    totalPrice: 1000,
+    statusType: 1,
+    statusText: "done",
+  }
+]
+
+const orderCategory = [
+  {
+    orderId: 1,
+    productid: 1,
+    imageSrc: "/a.jpge",
+    title: "aaa",
+    singlePrice: 111,
+    quanity: 1,
+    totalPrice: 100,
+    color: "gray",
+  },
+  {
+    orderId: 1,
+    productid: 1,
+    imageSrc: "/b.jpge",
+    title: "aaa",
+    singlePrice: 111,
+    quanity: 1,
+    totalPrice: 100,
+    color: "gray",
+  },
+]
+
+const productCategoryOverAll = [
+  {
+    type: 1,
+    typename: 'women',
+  },
+  {
+    type: 2,
+    typename: 'men',
+  },
+  {
+    type: 3,
+    typename: 'kid',
+  },
+]
+
+const productCategory = [
+  {
+    productcategoryid: 1,
+    type: 1,
+    typename: 'snow shoes'
+  },
+  {
+    productcategoryid: 1,
+    type: 2,
+    typename: 'winter shoes'
+  },
+  {
+    productcategoryid: 1,
+    type: 3,
+    typename: 'summer shoes'
+  },
+  {
+    productcategoryid: 1,
+    type: 4,
+    typename: 'whatever shoes'
+  },
+  {
+    productcategoryid: 2,
+    type: 1,
+    typename: 'snow shoes'
+  },
+  {
+    productcategoryid: 2,
+    type: 2,
+    typename: 'winter shoes'
+  },
+  {
+    productcategoryid: 2,
+    type: 3,
+    typename: 'summer shoes'
+  },
+  {
+    productcategoryid: 2,
+    type: 4,
+    typename: 'whatever shoes'
+  },
+  {
+    productcategoryid: 3,
+    type: 1,
+    typename: 'snow shoes'
+  },
+  {
+    productcategoryid: 3,
+    type: 2,
+    typename: 'winter shoes'
+  },
+  {
+    productcategoryid: 3,
+    type: 3,
+    typename: 'summer shoes'
+  },
+  {
+    productcategoryid: 3,
+    type: 4,
+    typename: 'whatever shoes'
+  },
+]
 
 
 export default async function handler(
@@ -256,74 +373,104 @@ export default async function handler(
 ) {
   // products
 
-  for (const post of initialPosts) {
-    await prisma.product.create({
+  // for (const post of initialPosts) {
+  //   await prisma.product.create({
+  //     data: post,
+  //   });
+  // }
+  // const products = await prisma.product.findMany();
+
+
+  // // productImgs
+  // for (const post of initialProductImgs) {
+  //   await prisma.productImg.create({
+  //     data: post,
+  //   });
+  // }
+  // //   const products = await prisma.productImg.findMany();
+
+
+  // // productColors
+  // for (const post of initialProductColor) {
+  //   await prisma.productColor.create({
+  //     data: post,
+  //   });
+  // }
+  // // const products = await prisma.productColor.findMany();
+
+
+
+  // // productSize
+  // for (const post of initialProductSize) {
+  //   await prisma.productSize.create({
+  //     data: post,
+  //   });
+  // }
+  // // const products = await prisma.productSize.findMany();
+
+
+  // // mainpage
+  // for (const post of mainpage) {
+  //   await prisma.mainPageImageConfig.create({
+  //     data: post,
+  //   });
+  // }
+  // // const products = await prisma.mainPageImageConfig.findMany();
+
+
+  // // cart
+  // for (const post of cart) {
+  //   await prisma.cartItem.create({
+  //     data: post,
+  //   });
+  // }
+  // // const products = await prisma.mainPageImageConfig.findMany();
+
+
+  // // midpage
+  // for (const post of midpage) {
+  //   await prisma.midPageImageConfig.create({
+  //     data: post,
+  //   });
+  // }
+
+  // // user
+  // for (const post of user) {
+  //   await prisma.user.create({
+  //     data: post,
+  //   });
+  // }
+
+  // // order
+  // for (const post of order) {
+  //   await prisma.order.create({
+  //     data: post,
+  //   });
+  // }
+
+  // // orderCategory
+  // for (const post of orderCategory) {
+  //   await prisma.orderCategory.create({
+  //     data: post,
+  //   });
+  // }
+
+  // ProductCategoryOverAllType
+  for (const post of productCategoryOverAll) {
+    await prisma.productCategoryOverAll.create({
       data: post,
     });
   }
-  const products = await prisma.product.findMany();
 
-
-  // productImgs
-  for (const post of initialProductImgs) {
-    await prisma.productImg.create({
-      data: post,
-    });
-  }
-  //   const products = await prisma.productImg.findMany();
-
-
-  // productColors
-  for (const post of initialProductColor) {
-    await prisma.productColor.create({
-      data: post,
-    });
-  }
-  // const products = await prisma.productColor.findMany();
-
-
-
-  // productSize
-  for (const post of initialProductSize) {
-    await prisma.productSize.create({
-      data: post,
-    });
-  }
-  // const products = await prisma.productSize.findMany();
-
-
-  // mainpage
-  for (const post of mainpage) {
-    await prisma.mainPageImageConfig.create({
-      data: post,
-    });
-  }
-  // const products = await prisma.mainPageImageConfig.findMany();
-
-
-  // cart
-  for (const post of cart) {
-    await prisma.cartItem.create({
-      data: post,
-    });
-  }
-  // const products = await prisma.mainPageImageConfig.findMany();
-
-
-  // midpage
-  for (const post of midpage) {
-    await prisma.midPageImageConfig.create({
+  // orderCategory
+  for (const post of productCategory) {
+    await prisma.productCategory.create({
       data: post,
     });
   }
 
-  // midpage
-  for (const post of user) {
-    await prisma.user.create({
-      data: post,
-    });
-  }
-  // const products = await prisma.midPageImageConfig.findMany();
+
+  const products = await prisma.midPageImageConfig.findMany();
 
   res.status(200).json({ message: 'Hello from Next.js!' + products.length });
 

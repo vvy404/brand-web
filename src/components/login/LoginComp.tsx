@@ -3,16 +3,32 @@ import { useState, useEffect } from 'react';
 import Popup from '../public/Popup';
 import './LoginComp.css';
 
-export default function LoginComp() {
+interface LoginCompProps {
+  showSignUp: boolean;
+  showSignIn: boolean;
+  setMaskClose: () => void;
+}
+
+const LoginComp : React.FC<LoginCompProps> = ({showSignUp, showSignIn, setMaskClose}) => {
     const [closeBtnState, setCloseBtn] = useState(false);
     const handleCloseMask = () => {
         setCloseBtn(true);
     }
+    const handleRender = () => {
+      if (showSignIn) {
+        return renderSignIn();
+      } else if(showSignUp) {
+        return renderSignUp();
+      }
+    }
+    const handleShowPop = () => {
+      console.log('close');
+      setMaskClose();
+    }
     const renderSignUp = () => {
         return (
-            // <div className={`${closeBtnState ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
-            <div className={`${true ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
-                <Popup isShow={true} width={32}>
+            <div className={`${showSignUp ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
+                <Popup isShow={showSignUp} setPopMaskClose={handleShowPop} width={32}>
                     <div className='px-6 pt-12 pb-6'>
                         <div className='text-[22px]'>SIGN UP AND RECEIVE 10% OFF YOUR FIRST ORDER</div>
                         <div className="text-sm mt-3 mb-[30px]">Find out first about new collections, events and promotions.</div>
@@ -45,9 +61,8 @@ export default function LoginComp() {
     }
     const renderSignIn = () => {
         return (
-            // <div className={`${closeBtnState ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
-            <div className={`${true ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
-                <Popup isShow={false} width={20}>
+            <div className={`${showSignIn ? "" : "set-bg-indigo-50-on-body "}login-comp`}>
+                <Popup isShow={showSignIn} setPopMaskClose={handleShowPop} width={20}>
                     <div className='px-6 py-10'>
                         <div className='flex justify-between'>
                             <div className='text-xs'>Sign in</div>
@@ -71,6 +86,8 @@ export default function LoginComp() {
     }
 
     return (
-        renderSignIn()
+      handleRender()
     )
 }
+
+export default LoginComp;

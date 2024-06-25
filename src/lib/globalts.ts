@@ -41,8 +41,8 @@ export type AjaxResType<T, E> = {
 }
 
 export interface ProductInfoType extends ProductType {
-  color: ProductColorType[],
-  size: ProductSizeType[],
+  color: ProductColorType[];
+  size: ProductSizeType[];
 }
 
 // mainpage
@@ -87,4 +87,47 @@ export interface UserType {
   phone: string;
   role: string;
   roletype: number;
+}
+
+export interface OrderType {
+  id: number;
+  userId: number;
+  createdAt: Date;
+  paymentAt: Date;
+  totalPrice: number;
+  statusType: number;
+  statusText: string;
+}
+
+export interface OrderCategoryType {
+  id : number;
+  orderId: number;
+  productid: number;
+  imageSrc: string;
+  title: string;
+  quanity: number;
+  color: string;
+  singlePrice: number;
+  totalPrice: number;
+}
+
+export interface OrderFullInfoType extends OrderType {
+  orderCategory: OrderCategoryType[];
+}
+
+export interface ProductCategoryOverAllType {
+  id: number;
+  type: number;
+  typename: string;
+}
+
+export interface ProductCategoryType {
+  id: number;
+  productcategoryid: number;
+  type: number;
+  typename: string;
+}
+
+export interface ProductFullCatogoryType extends ProductCategoryOverAllType {
+  categorys: ProductCategoryType[];
 }
