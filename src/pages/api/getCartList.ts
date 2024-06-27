@@ -11,7 +11,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const cartlist = await prisma.cartItem.findMany();
+  const { userid } = req.cookies;
+
+  const cartlist = await prisma.cartItem.findMany({
+    where: {
+      userid: Number(userid),
+    }
+  });
   
   res.status(200).json({
     code: 0,

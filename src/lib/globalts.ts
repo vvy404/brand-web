@@ -27,6 +27,16 @@ export interface ProductType {
   price: number;
 };
 
+export interface FavProductType {
+  id: number;
+  productid: number;
+  imgSrc: string;
+  title: string;
+  color: string;
+  price: number;
+  userid: number;
+}
+
 export interface ResponseAjaxType {
   code: number;
   data: any
@@ -78,6 +88,7 @@ export interface CartItemType {
   colorid: number;
   color: string;
   quantity: number;
+  userid: number;
 }
 
 export interface UserType {

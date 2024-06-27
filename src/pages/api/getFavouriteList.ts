@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '@/lib/prisma';
+import { cookies } from 'next/headers'
 
 type ResponseData = {
   code: number
@@ -11,9 +12,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const products = await prisma.product.findMany({
+  const { userid } = req.cookies;
+  const products = await prisma.favProduct.findMany({
     where: {
-      isLiked: true,
+      userid: Number(userid),
     }
   });
   

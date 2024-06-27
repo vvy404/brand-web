@@ -179,6 +179,7 @@ const cart = [
     price: 1000,
     size: "1",
     color: 'red',
+    userid: 1,
   },
   {
     productid: 1,
@@ -191,6 +192,7 @@ const cart = [
     price: 1000,
     size: "1",
     color: 'red',
+    userid: 1,
   },
   {
     productid: 1,
@@ -203,6 +205,7 @@ const cart = [
     price: 1000,
     size: "1",
     color: 'red',
+    userid: 1,
   }, {
     productid: 1,
     colorid: 2,
@@ -214,6 +217,7 @@ const cart = [
     price: 1000,
     size: "1",
     color: 'red',
+    userid: 1,
   },
   {
     productid: 1,
@@ -226,26 +230,20 @@ const cart = [
     price: 1000,
     size: "1",
     color: 'red',
+    userid: 1,
   }
 ]
 
 const user = [
   {
     email: "wy@gmail.com",
-    name: "wangye--1",
+    firstname: "wang",
+    lastname: "ye",
     phone: "18801201739",
     role: "level1",
     roletype: 1,
     isSubscribed: true,
   },
-  {
-    email: "wy@gmail.com",
-    name: "wangye--1",
-    phone: "18801201739",
-    role: "level1",
-    roletype: 2,
-    isSubscribed: true,
-  }
 ]
 
 const order = [
@@ -366,6 +364,33 @@ const productCategory = [
   },
 ]
 
+const favProductList = [
+  {
+    productid: 1,
+    imgSrc: '/a.jpeg',
+    title: 'CURVED-HEM SHORT-SLEEVED DENIM SHIRT',
+    color: 'black',
+    price: 1000,
+    userid: 1,
+  },
+  {
+    productid: 1,
+    imgSrc: '/a.jpeg',
+    title: 'CURVED-HEM SHORT-SLEEVED DENIM SHIRT',
+    color: 'red',
+    price: 1000,
+    userid: 1,
+  },
+  {
+    productid: 1,
+    imgSrc: '/a.jpeg',
+    title: 'CURVED-HEM SHORT-SLEEVED DENIM SHIRT',
+    color: 'white',
+    price: 1000,
+    userid: 1,
+  },
+]
+
 
 export default async function handler(
   req: NextApiRequest,
@@ -373,87 +398,84 @@ export default async function handler(
 ) {
   // products
 
-  // for (const post of initialPosts) {
-  //   await prisma.product.create({
-  //     data: post,
-  //   });
-  // }
-  // const products = await prisma.product.findMany();
+  for (const post of initialPosts) {
+    await prisma.product.create({
+      data: post,
+    });
+  }
 
 
-  // // productImgs
-  // for (const post of initialProductImgs) {
-  //   await prisma.productImg.create({
-  //     data: post,
-  //   });
-  // }
-  // //   const products = await prisma.productImg.findMany();
+  // productImgs
+  for (const post of initialProductImgs) {
+    await prisma.productImg.create({
+      data: post,
+    });
+  }
+  //   const products = await prisma.productImg.findMany();
 
 
-  // // productColors
-  // for (const post of initialProductColor) {
-  //   await prisma.productColor.create({
-  //     data: post,
-  //   });
-  // }
-  // // const products = await prisma.productColor.findMany();
+  // productColors
+  for (const post of initialProductColor) {
+    await prisma.productColor.create({
+      data: post,
+    });
+  }
+  // const products = await prisma.productColor.findMany();
 
 
 
-  // // productSize
-  // for (const post of initialProductSize) {
-  //   await prisma.productSize.create({
-  //     data: post,
-  //   });
-  // }
-  // // const products = await prisma.productSize.findMany();
+  // productSize
+  for (const post of initialProductSize) {
+    await prisma.productSize.create({
+      data: post,
+    });
+  }
+  // const products = await prisma.productSize.findMany();
 
 
-  // // mainpage
-  // for (const post of mainpage) {
-  //   await prisma.mainPageImageConfig.create({
-  //     data: post,
-  //   });
-  // }
-  // // const products = await prisma.mainPageImageConfig.findMany();
+  // mainpage
+  for (const post of mainpage) {
+    await prisma.mainPageImageConfig.create({
+      data: post,
+    });
+  }
+  // const products = await prisma.mainPageImageConfig.findMany();
 
+// user
+for (const post of user) {
+  await prisma.user.create({
+    data: post,
+  });
+}
 
-  // // cart
-  // for (const post of cart) {
-  //   await prisma.cartItem.create({
-  //     data: post,
-  //   });
-  // }
-  // // const products = await prisma.mainPageImageConfig.findMany();
+  // cart
+  for (const post of cart) {
+    await prisma.cartItem.create({
+      data: post,
+    });
+  }
 
+  // midpage
+  for (const post of midpage) {
+    await prisma.midPageImageConfig.create({
+      data: post,
+    });
+  }
 
-  // // midpage
-  // for (const post of midpage) {
-  //   await prisma.midPageImageConfig.create({
-  //     data: post,
-  //   });
-  // }
+  
+  // order
+  for (const post of order) {
+    await prisma.order.create({
+      data: post,
+    });
+  }
 
-  // // user
-  // for (const post of user) {
-  //   await prisma.user.create({
-  //     data: post,
-  //   });
-  // }
-
-  // // order
-  // for (const post of order) {
-  //   await prisma.order.create({
-  //     data: post,
-  //   });
-  // }
-
-  // // orderCategory
-  // for (const post of orderCategory) {
-  //   await prisma.orderCategory.create({
-  //     data: post,
-  //   });
-  // }
+  // orderCategory
+  for (const post of orderCategory) {
+    await prisma.orderCategory.create({
+      data: post,
+    });
+  }
 
   // ProductCategoryOverAllType
   for (const post of productCategoryOverAll) {
@@ -468,6 +490,14 @@ export default async function handler(
       data: post,
     });
   }
+
+  // favProductList 
+  for (const post of favProductList) {
+    await prisma.favProduct.create({
+      data: post,
+    });
+  }
+  
 
 
   const products = await prisma.midPageImageConfig.findMany();

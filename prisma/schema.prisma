@@ -19,17 +19,19 @@ model Note {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
-  email        String   @unique
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
   firstname    String
   lastname     String
   phone        String?
-  role         String   @default("user")
-  roletype     Int      @default(1)
-  password     String   @default("123456789")
-  isSubscribed Boolean  @default(false)
+  role         String       @default("user")
+  roletype     Int          @default(1)
+  password     String       @default("123456789")
+  isSubscribed Boolean      @default(false)
   orders       Order[]
   profile      Profile?
+  FavProduct   FavProduct[]
+  CartItem     CartItem[]
 }
 
 model Profile {
@@ -85,6 +87,19 @@ model Product {
   CartItem      CartItem[]
   ProductSize   ProductSize[]
   OrderCategory OrderCategory[]
+  FavProduct    FavProduct[]
+}
+
+model FavProduct {
+  id        Int     @id @default(autoincrement())
+  Product   Product @relation(fields: [productid], references: [id])
+  productid Int
+  User      User    @relation(fields: [userid], references: [id])
+  userid    Int
+  imgSrc    String
+  price     Int
+  title     String
+  color     String
 }
 
 model ProductSize {
@@ -139,6 +154,8 @@ model CartItem {
   colorid      Int
   ProductSize  ProductSize  @relation(fields: [sizeid], references: [id])
   sizeid       Int
+  User         User         @relation(fields: [userid], references: [id])
+  userid       Int
   quantity     Int
   imgSrc       String
   title        String

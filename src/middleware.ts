@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
-import jwt from 'jsonwebtoken'
 import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
 
 
@@ -36,6 +35,8 @@ export default async function middleware(request: NextRequest) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    '/profile/:path*'
+    '/profile/:path*',
+    '/favourites',
+    '/cart'
   ],
 }

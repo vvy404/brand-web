@@ -1,5 +1,4 @@
 // import { serialize } from 'cookie'
-import jwt from 'jsonwebtoken'
 import { serialize } from 'cookie';
 import { SignJWT, jwtVerify, type JWTPayload } from 'jose';
 import { NextResponse } from 'next/server'

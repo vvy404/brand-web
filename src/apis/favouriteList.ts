@@ -5,7 +5,7 @@ interface FavouriteListResType {
 }
 
 export const getFavListData = async () : Promise<AjaxResType<FavouriteListResType, DefaultErrorType>> => {
-  const res = await fetch("http://localhost:3000/api/getFavouriteList");
+  const res = await fetch("/api/getFavouriteList");
   const repo = await res.json()
 
   return repo;

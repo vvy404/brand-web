@@ -2,6 +2,7 @@
 // import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { useState } from "react";
+// import Router from "next/router";
 
 import Header from '@/components/public/Header';
 import Footer from "@/components/public/Footer";
@@ -21,6 +22,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Router.events.on('routeChangeStart', (...args)=> {
+  //   console.log('router change, args =', ...args);
+  // })
   const [isShowSignIn, setIsShowSignIn] = useState<boolean>(false);
   const [isShowSignUp, setIsShowSigUp] = useState<boolean>(false);
   const [isUserSignIn, setUserSignIn] = useState<boolean>(false);
