@@ -21,10 +21,12 @@ model Note {
 model User {
   id           Int      @id @default(autoincrement())
   email        String   @unique
-  name         String?
-  phone        String
-  role         String
-  roletype     Int
+  firstname    String
+  lastname     String
+  phone        String?
+  role         String   @default("user")
+  roletype     Int      @default(1)
+  password     String   @default("123456789")
   isSubscribed Boolean  @default(false)
   orders       Order[]
   profile      Profile?
@@ -42,7 +44,7 @@ model Order {
   user         User            @relation(fields: [userId], references: [id])
   userId       Int
   createdAt    DateTime        @default(now())
-  paymentAt    DateTime        
+  paymentAt    DateTime
   totalPrice   Int
   statusType   Int
   statusText   String
@@ -147,16 +149,16 @@ model CartItem {
 }
 
 model ProductCategoryOverAll {
-  id Int @id @default(autoincrement())
-  type Int
-  typename String
+  id              Int               @id @default(autoincrement())
+  type            Int
+  typename        String
   ProductCategory ProductCategory[]
 }
 
 model ProductCategory {
-  id Int @id @default(autoincrement())
+  id                     Int                    @id @default(autoincrement())
   ProductCategoryOverAll ProductCategoryOverAll @relation(fields: [productcategoryid], references: [id])
-  productcategoryid Int
-  type Int
-  typename String
+  productcategoryid      Int
+  type                   Int
+  typename               String
 }

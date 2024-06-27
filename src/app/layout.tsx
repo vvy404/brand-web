@@ -21,9 +21,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isMaskVisable, setIsMaskVisable] = useState(true);
   const [isShowSignIn, setIsShowSignIn] = useState<boolean>(false);
   const [isShowSignUp, setIsShowSigUp] = useState<boolean>(false);
+  const [isUserSignIn, setUserSignIn] = useState<boolean>(false);
 
   const handleSignInClick = (param = false) => {
     console.log(param);
@@ -37,14 +37,27 @@ export default function RootLayout({
     setIsShowSignIn(false);
     setIsShowSigUp(false);
   }
+  const handleUserStatusChange = () => {
+    setUserSignIn(true)
+  }
 
   return (
     <html lang="en">
-      <body className={`${inter.className} ${isMaskVisable ? "overflow-body" : ""}`}>
-        <Header onClickSignIn={handleSignInClick} onClickSignUp={handleSignUpClick}></Header>
+      <body className={`${inter.className} ${isShowSignIn || isShowSignUp ? "overflow-hidden" : ""}`}>
+        <Header
+          showUser={isUserSignIn}
+          onClickSignIn={handleSignInClick}
+          onClickSignUp={handleSignUpClick}
+          setUserStatus={handleUserStatusChange}
+        ></Header>
         {children}
         <div id="__next">
-          <LoginComp showSignUp={isShowSignUp} showSignIn={isShowSignIn} setMaskClose={handleShowPop}></LoginComp>
+          <LoginComp
+            showSignUp={isShowSignUp}
+            showSignIn={isShowSignIn}
+            setMaskClose={handleShowPop}
+            setUserStatus={handleUserStatusChange}
+          ></LoginComp>
         </div>
         <Footer></Footer>
       </body>
