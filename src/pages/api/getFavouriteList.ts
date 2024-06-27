@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { prisma } from '@/lib/prisma';
-import { cookies } from 'next/headers'
 
 type ResponseData = {
   code: number

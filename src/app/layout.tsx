@@ -1,14 +1,14 @@
 "use client"
 // import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import Router from "next/router";
 
 import Header from '@/components/public/Header';
 import Footer from "@/components/public/Footer";
 import LoginComp from "@/components/login/LoginComp";
 import "./globals.css";
-
+import { getCurrentUserInfo } from "@/apis/auth/getCurrentUserInto";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,6 +44,18 @@ export default function RootLayout({
   const handleUserStatusChange = () => {
     setUserSignIn(true)
   }
+
+  const getUserInfo = async () => {
+    const res = await getCurrentUserInfo();
+    if (res && !res.code && res.data?.userid) {
+      setUserSignIn(true);
+    }
+  }
+
+  useEffect(() => {
+    console.log('---document.cookie', document.cookie);
+    getUserInfo();
+  }, [])
 
   return (
     <html lang="en">
