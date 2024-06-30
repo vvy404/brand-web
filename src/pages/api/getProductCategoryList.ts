@@ -21,7 +21,7 @@ export default async function handler(
         productcategoryid: cid
       }
     })
-    finalList.push({...list[i], categorys: category});
+    finalList.push({...list[i], childtype: category});
   }
   
   res.status(200).json({

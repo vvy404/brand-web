@@ -140,5 +140,5 @@ export interface ProductCategoryType {
 }
 
 export interface ProductFullCatogoryType extends ProductCategoryOverAllType {
-  categorys: ProductCategoryType[];
+  childtype: ProductCategoryType[];
 }

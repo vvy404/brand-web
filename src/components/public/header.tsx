@@ -103,12 +103,13 @@ const Header: React.FC<HeaderProps> = ({
         {
           categorylist.map(cateitem => {
             return (
-                <div key={cateitem.id} className="w-[200px] px-[44px] pb-8 border-r ">
-                  <div className="text-gray-400 leading-8">{cateitem.typename}</div>
+                <div key={cateitem.id} className="w-[280px] px-[44px] pb-8 border-r ">
+                  <div className="text-gray-400 leading-8 flex flex-col">{cateitem.typename}</div>
                   {
-                    cateitem.categorys.map(item => {
+                    cateitem.childtype.map(item => {
                       return (
-                        <Link href={`http://localhost:3000/products?type=${cateitem.type}`} key={item.id} className="leading-6" onClick={handleItemClick}>{item.typename}</Link>
+                        <Link href={{pathname: '/products', query: {type: item.type}}} key={item.id} className="leading-6 block" onClick={handleItemClick}>{item.typename}</Link>
+                        // <Link href={`http://localhost:3000/products?type=${item.type}`} key={item.id} className="leading-6 block" onClick={handleItemClick}>{item.typename}</Link>
                       )
                     })
                   }

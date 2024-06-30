@@ -10,13 +10,21 @@ import { ProductInfoType } from "@/lib/globalts"
 interface ProductListProps {
   list: ProductInfoType[];
   type: string;
+  pageTotal: number;
+  currentPageIndex: number;
+  handlePageIndexChange: (index: number) => void;
 }
 
-const ProductList: React.FC<ProductListProps> = ({ list }) => {
+const ProductList: React.FC<ProductListProps> = ({ 
+  list,
+  pageTotal,
+  currentPageIndex,
+  handlePageIndexChange
+}) => {
 
   const renderItem = (i:ProductInfoType) => {
     return (
-      <div className="flex flex-col relative mb-14">
+      <div key={i.id} className="flex flex-col relative mb-14">
         <div className="image-group w-full relative">
           {i.isNew ? (<div className="absolute top-[10px] left-[-10px] text-xs px-4 py-1 bg-black text-white">NEW</div>) : ("")}
           <Image src={i.imgSrc} alt="pic" width={100} height={150} className="w-full" />
@@ -59,7 +67,11 @@ const ProductList: React.FC<ProductListProps> = ({ list }) => {
         }
 
       </div>
-      <Paginator></Paginator>
+      <Paginator
+        pageTotal={pageTotal}
+        currentPageIndex={currentPageIndex}
+        onPageIndexChange={handlePageIndexChange}
+        ></Paginator>
       {/* <div className="h-1 mt-16 pb-2 border-t border-solid border-gray-200"></div> */}
 
     </div>
