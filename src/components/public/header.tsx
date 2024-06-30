@@ -4,8 +4,9 @@ import { useState, useEffect, ReactEventHandler } from "react";
 import Link from 'next/link'
 import { getCategoryList } from '@/apis/getCategory';
 import { MainProductType, MidProductType, ProductFullCatogoryType } from '@/lib/globalts';
-
+import logoutUser from "@/apis/auth/logout";
 import './header.css';
+import { useRouter } from 'next/navigation'
 
 interface HeaderProps {
   showUser: boolean;
@@ -20,6 +21,8 @@ const Header: React.FC<HeaderProps> = ({
   onClickSignUp,
   setUserStatus,
 }) => {
+  // const { pathname, events} = useRouter();
+  const router = useRouter();
   const [isContentVisible, setContentVisible] = useState(false);
   const [categorylist, setCategoryList] = useState<ProductFullCatogoryType[]>([]);
 
@@ -52,6 +55,14 @@ const Header: React.FC<HeaderProps> = ({
     onClickSignUp(true)
   }
 
+  const handleLogOutClick = async () => {
+    console.log('log out click');
+    const res = await logoutUser();
+    console.log('res res res', res);
+    if (res && !res.code) {
+      router.push('/main');
+    }
+  }
   useEffect(() => {
     getCategoryData();
   }, [])
@@ -77,10 +88,10 @@ const Header: React.FC<HeaderProps> = ({
             </svg>
             <div className="pl-1 cursor-pointer">SEARCH</div>
           </div>
-          {showUser && (<div className="cursor-pointer">MY ACCOUNT</div>)}
+          {showUser && (<Link href={{pathname: '/profile'}} className="cursor-pointer">MY ACCOUNT</Link>)}
           {!showUser && (<div className="cursor-pointer" onClick={handleSignInClick}>SIGN IN</div>)}
           {!showUser && (<div className="cursor-pointer" onClick={handleSignUpClick}>SIGN UP</div>)}
-          {showUser && (<div className="cursor-pointer" onClick={handleSignUpClick}>LOG OUT</div>)}
+          {showUser && (<div className="cursor-pointer" onClick={handleLogOutClick}>LOG OUT</div>)}
           {showUser && (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4 cursor-pointer">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
           </svg>)}

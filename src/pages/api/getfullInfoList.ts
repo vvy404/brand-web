@@ -15,6 +15,7 @@ export default async function handler(
   const type = Number(req.query.type);
   const pageNum = Number(req.query.pageNum);
   const pageIndex = Number(req.query.currentPageIndex);
+  const {userid} = req.cookies;
   const products = await prisma.product.findMany({
     skip: pageIndex * pageNum,
     take: pageNum,
@@ -41,7 +42,20 @@ export default async function handler(
         productid: pid
       }
     })
-    const f_product = {...products[i], color: p_color, size: p_size};
+
+    const favProduct = await prisma.favProduct.findFirst({
+      where: {
+        userid: Number(userid),
+        productid: pid
+      }
+    })
+
+    const f_product = {
+      ...products[i], 
+      color: p_color, 
+      size: p_size,
+      isLiked: !!(favProduct && favProduct.id)
+    };
     finalProducts.push(f_product);
   }
 

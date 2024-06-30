@@ -11,23 +11,32 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
 ) {
-  const { userid, token } = req.cookies;
+  if (req.cookies && req.cookies.userid) {
+    const { userid, token } = req.cookies;
 
-  const user = await prisma.user.findMany({
-    where: {
-      id: Number(userid),
+    const user = await prisma.user.findMany({
+      where: {
+        id: Number(userid),
+      }
+    });
+    if (user) {
+      res.status(200).json({
+        code: 0,
+        message: 'success!',
+        data: {
+          userid: userid,
+          token: token,
+        },
+      });
     }
-  });
-  if (user) {
+  } else {
     res.status(200).json({
-      code: 0,
-      message: 'success!',
-      data: {
-        userid: userid,
-        token: token,
-      },
+      code: 1,
+      message: 'user dose not login',
+      data: "",
     });
   }
+
   
 
 }
