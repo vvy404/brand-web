@@ -16,7 +16,7 @@ type Error = {
 }
 
 export const getData = async ({ productid=999 } : GetDetailArgus): Promise<AjaxResType<GetDetailRes, Error>> => {
-  const res = await fetch(`http://localhost:3000/api/getDetailData?productid=${productid}`);
+  const res = await fetch(`/api/getDetailData?productid=${productid}`);
   const repo = await res.json();
   
   return repo;

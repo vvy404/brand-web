@@ -1,7 +1,7 @@
-import { ProductType, AjaxResType, DefaultErrorType } from "@/lib/globalts";
+import { FavProductFullType, AjaxResType, DefaultErrorType } from "@/lib/globalts";
 
 interface FavouriteListResType {
-  list: ProductType[],
+  list: FavProductFullType[],
 }
 
 export const getFavListData = async () : Promise<AjaxResType<FavouriteListResType, DefaultErrorType>> => {

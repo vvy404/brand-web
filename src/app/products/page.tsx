@@ -105,6 +105,10 @@ const Products: React.FC = () => {
     }
   }
 
+  const handleClickImage = (id: number) => {
+    router.push(`/detail?productid=${id}`);
+  }
+
 
   useEffect(() => {
     getProductList(currentPageIndex);
@@ -121,6 +125,7 @@ const Products: React.FC = () => {
         currentPageIndex={currentPageIndex}
         handlePageIndexChange={handlePageIndexChange}
         handleLikeClick={handleLikeClick}
+        handleClickImage={handleClickImage}
       ></ProductList>
       <div id="__next">
           <LoginComp

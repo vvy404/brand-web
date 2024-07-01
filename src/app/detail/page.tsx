@@ -1,5 +1,6 @@
 "use client"
 import { useState, useEffect } from "react"
+import {useRouter, usePathname, useSearchParams} from 'next/navigation'
 
 import ImageDetail from "@/components/detail/ImageDetail"
 import ProductInfos from "@/components/detail/ProductInfos"
@@ -11,19 +12,22 @@ import { getRecoListData } from "@/apis/getRecoList"
 import { ProductType, ProductImgType, ProductColorType, ProductSizeType, ProductInfoType } from "@/lib/globalts"
 
 interface DetailPageProps {
-  productid: number;
+  // productid: number;
 }
 
 interface DetailPageState {
 
 }
 
-const Detail: React.FC<DetailPageProps> = ({ productid = 1 }) => {
+const Detail: React.FC<DetailPageProps> = () => {
   const [ imageDetail, setImageDetail ] = useState<ProductImgType[]>([]);
   const [ productInfo, setProductInfos] = useState<ProductInfoType | null>(null);
   const [ mainImg, setMainImg] = useState("");
   const [ isLike, setIsLike ] = useState(false);
   const [ recoList, setRecoList ] = useState<ProductType[]>([]);
+
+  const searchParams = useSearchParams();
+  const productid = searchParams?.get('productid') || "1";
 
   const getRecoList = async () => {
     const res = await getRecoListData({
@@ -35,7 +39,7 @@ const Detail: React.FC<DetailPageProps> = ({ productid = 1 }) => {
     }
   }
   const getDataFunc = async () => {
-    const res = await getData({productid: productid});
+    const res = await getData({productid: Number(productid)});
     if (res && res.code === 0 && res.data) {
       const product = res.data.product;
       const productimgs = res.data.productimgs;

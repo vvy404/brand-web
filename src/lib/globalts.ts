@@ -32,7 +32,6 @@ export interface FavProductType {
   productid: number;
   imgSrc: string;
   title: string;
-  color: string;
   price: number;
   userid: number;
 }
@@ -141,4 +140,15 @@ export interface ProductCategoryType {
 
 export interface ProductFullCatogoryType extends ProductCategoryOverAllType {
   childtype: ProductCategoryType[];
+}
+
+export interface FavProductFullType extends FavProductType {
+  color: ProductColorType[];
+  size: ProductSizeType[];
+}
+
+export interface SizeInfoType {
+  colorid: number;
+  sizeid: number;
+  total: number;
 }

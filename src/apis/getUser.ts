@@ -9,7 +9,7 @@ interface Error {
 }
 
 export const getUserInfo = async () : Promise<AjaxResType<InfoResType, Error>> => {
-  const res = await fetch(`http://localhost:3000/api/getUserInfo`);
+  const res = await fetch(`/api/getUserInfo`);
   const repo = await res.json()
 
   return repo;

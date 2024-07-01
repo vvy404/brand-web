@@ -13,7 +13,6 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   const body = req.body;
-console.log('bodyyy-------------', body);
   const targetproduct = await prisma.favProduct.findFirst({
     where: {
       productid: Number(body)
