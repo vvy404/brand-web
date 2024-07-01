@@ -13,7 +13,7 @@ type SizeInfoType = Omit<CartItemType, "id">
 export default function ProductInfos({
   info
 }: ProductInfoProps) {
-  const defalutColorId = info?.color[0].id;
+  const defalutColorId = info?.color[0]?.id;
   const [color, setColor] = useState<string>("");
   const [currentColorID, setCurrentColorID] = useState<number>(defalutColorId || 0);
   const [sizePairs, setSizePairs] = useState<SizeInfoType[]>([]);

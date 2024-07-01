@@ -14,7 +14,6 @@ export default async function handler(
 ) {
   const body = req.body;
   const params = JSON.parse(body);
-
   const product = await prisma.cartItem.createMany({data: params});
   if (product) {
     res.status(200).json({

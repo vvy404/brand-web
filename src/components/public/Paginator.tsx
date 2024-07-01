@@ -25,7 +25,6 @@ const Paginator: React.FC<PaginatorProps> = ({
           <button className="bg-black text-white text-sm px-10 py-4" onClick={() => handleClickIndex(currentPageIndex - 1)}>Next Page</button>
         )
       }
-
       <div className="flex mt-6 text-sm justify-center items-center cursor-pointer">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +41,7 @@ const Paginator: React.FC<PaginatorProps> = ({
           {
             pageArr.map((i, idx) => {
               return (
-                <div onClick={() => handleClickIndex(idx)} className={`inline-block px-2 mx-4 ${currentPageIndex === idx ? 'bg-black text-white' : ''}`}>{idx + 1}</div>
+                <div key={idx} onClick={() => handleClickIndex(idx)} className={`inline-block px-2 mx-4 ${currentPageIndex === idx ? 'bg-black text-white' : ''}`}>{idx + 1}</div>
               )
             })
           }

@@ -152,3 +152,8 @@ export interface SizeInfoType {
   sizeid: number;
   total: number;
 }
+
+export enum UserRootType {
+  USER = 1,
+  ROOT = 2,
+}

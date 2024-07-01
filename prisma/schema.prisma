@@ -57,8 +57,8 @@ model OrderCategory {
   id          Int     @id @default(autoincrement())
   order       Order   @relation(fields: [orderId], references: [id])
   orderId     Int
-  Product     Product @relation(fields: [productid], references: [id])
-  productid   Int
+  Product     Product? @relation(fields: [productid], references: [id])
+  productid   Int?
   imageSrc    String
   title       String
   quanity     Int
@@ -148,12 +148,12 @@ model MidPageImageConfig {
 
 model CartItem {
   id           Int          @id @default(autoincrement())
-  Product      Product      @relation(fields: [productid], references: [id])
-  productid    Int
-  ProductColor ProductColor @relation(fields: [colorid], references: [id])
-  colorid      Int
-  ProductSize  ProductSize  @relation(fields: [sizeid], references: [id])
-  sizeid       Int
+  Product      Product?      @relation(fields: [productid], references: [id])
+  productid    Int?
+  ProductColor ProductColor? @relation(fields: [colorid], references: [id])
+  colorid      Int?
+  ProductSize  ProductSize?  @relation(fields: [sizeid], references: [id])
+  sizeid       Int?
   User         User         @relation(fields: [userid], references: [id])
   userid       Int
   quantity     Int
@@ -179,3 +179,4 @@ model ProductCategory {
   type                   Int
   typename               String
 }
+

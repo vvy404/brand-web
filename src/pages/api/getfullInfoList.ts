@@ -65,7 +65,7 @@ export default async function handler(
     data: {
       list: finalProducts,
       currentPageIndex: pageIndex,
-      pageTotal: Math.floor(productAll.length / 2),
+      pageTotal: Math.ceil(productAll.length / pageNum),
       pageNum: pageNum,
       // mainlist: products,
       // newlist: products,
