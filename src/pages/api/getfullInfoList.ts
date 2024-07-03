@@ -13,21 +13,51 @@ export default async function handler(
 ) {
   // const products = await prisma.$queryRaw`SELECT * FROM Product`
   const type = Number(req.query.type);
+  const bigType = Number(req.query.bigType);
   const pageNum = Number(req.query.pageNum);
   const pageIndex = Number(req.query.currentPageIndex);
   const {userid} = req.cookies;
-  const products = await prisma.product.findMany({
-    skip: pageIndex * pageNum,
-    take: pageNum,
-    where: {
-      type: type,
-    }
-  });
-  const productAll = await prisma.product.findMany({
-    where: {
-      type: type,
-    }
-  });
+  let products = []; 
+  if (type === -1) {
+    products = await prisma.product.findMany({
+      skip: pageIndex * pageNum,
+      take: pageNum,
+    });
+  } else if(bigType === 999) {
+    products = await prisma.product.findMany({
+      skip: pageIndex * pageNum,
+      take: pageNum,
+      where: {
+        type: type,
+      }
+    });
+  } else {
+    products = await prisma.product.findMany({
+      skip: pageIndex * pageNum,
+      take: pageNum,
+      where: {
+        bigType: bigType,
+      }
+    });
+  }
+
+  let productAll = [];
+  if (type === -1) {
+    productAll = await prisma.product.findMany();
+  } else if(bigType === 999) {
+    productAll = await prisma.product.findMany({
+      where: {
+        type: type,
+      }
+    });
+  } else {
+    productAll = await prisma.product.findMany({
+      where: {
+        bigType,
+      }
+    });
+  }
+
   let finalProducts= [];
   
   for (let i =0 ;i < products.length; i++) {

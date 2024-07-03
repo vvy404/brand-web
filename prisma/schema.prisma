@@ -54,8 +54,8 @@ model Order {
 }
 
 model OrderCategory {
-  id          Int     @id @default(autoincrement())
-  order       Order   @relation(fields: [orderId], references: [id])
+  id          Int      @id @default(autoincrement())
+  order       Order    @relation(fields: [orderId], references: [id])
   orderId     Int
   Product     Product? @relation(fields: [productid], references: [id])
   productid   Int?
@@ -73,6 +73,10 @@ model Product {
   imgSrc        String
   title         String
   price         Int
+  ProductCategoryOverAll ProductCategoryOverAll @relation(fields: [bigType], references: [type])
+  bigType       Int            
+  bigTypeName   String         @default("")
+  ProductCategory ProductCategory @relation(fields: [type], references: [type])
   type          Int
   typeName      String
   madeof        String
@@ -91,15 +95,15 @@ model Product {
 }
 
 model FavProduct {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   Product   Product? @relation(fields: [productid], references: [id])
   productid Int?
-  User      User    @relation(fields: [userid], references: [id])
+  User      User     @relation(fields: [userid], references: [id])
   userid    Int
   imgSrc    String
   price     Int
   title     String
-  color     String? 
+  color     String?
 }
 
 model ProductSize {
@@ -147,14 +151,14 @@ model MidPageImageConfig {
 }
 
 model CartItem {
-  id           Int          @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   Product      Product?      @relation(fields: [productid], references: [id])
   productid    Int?
   ProductColor ProductColor? @relation(fields: [colorid], references: [id])
   colorid      Int?
   ProductSize  ProductSize?  @relation(fields: [sizeid], references: [id])
   sizeid       Int?
-  User         User         @relation(fields: [userid], references: [id])
+  User         User          @relation(fields: [userid], references: [id])
   userid       Int
   quantity     Int
   imgSrc       String
@@ -167,16 +171,18 @@ model CartItem {
 
 model ProductCategoryOverAll {
   id              Int               @id @default(autoincrement())
-  type            Int
+  type            Int @unique
   typename        String
   ProductCategory ProductCategory[]
+  Product Product[]
 }
 
 model ProductCategory {
   id                     Int                    @id @default(autoincrement())
   ProductCategoryOverAll ProductCategoryOverAll @relation(fields: [productcategoryid], references: [id])
   productcategoryid      Int
-  type                   Int
+  type                   Int @unique
   typename               String
+  mainRecommend          Boolean?               @default(false)
+  Product Product[]
 }
-

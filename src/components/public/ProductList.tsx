@@ -32,7 +32,7 @@ const ProductList: React.FC<ProductListProps> = ({
 
   const renderItem = (i: ProductInfoType, idx: number) => {
     return (
-      <div key={i.id} className="flex flex-col relative mb-14">
+      <div key={i.id} className="flex flex-col relative mb-14  cursor-pointer">
         <div className="image-group w-full relative">
           {i.isNew ? (<div className="absolute top-[10px] left-[-10px] text-xs px-4 py-1 bg-black text-white">NEW</div>) : ("")}
           <Image src={i.imgSrc} alt="pic" width={100} height={150} className="w-full" onClick={() => handleClickImage(i.id)} />

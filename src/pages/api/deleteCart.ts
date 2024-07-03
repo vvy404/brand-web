@@ -14,15 +14,13 @@ export default async function handler(
   res: NextApiResponse<ResponseData>
 ) {
   const body = req.body;
-  const { userid } = req.cookies;
-  const params : CartItemType[] = JSON.parse(body);
-  const list = params.map(item => {
-    return {
-      ...item,
-      userid: Number(userid),
+  const params = JSON.parse(body);
+  
+  const product = await prisma.cartItem.delete({
+    where: {
+      id: Number(params)
     }
   })
-  const product = await prisma.cartItem.createMany({data: list});
   if (product) {
     res.status(200).json({
       code: 0,

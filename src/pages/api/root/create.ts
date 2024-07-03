@@ -7,12 +7,6 @@ type ResponseData = {
   data: any
 }
 
-const typeNameToId = {
-  "women": 1,
-  "man": 2,
-  "kid": 3,
-}
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ResponseData>
@@ -26,12 +20,14 @@ export default async function handler(
       imgSrc: imageArr?.split("|")?.[0],
       title: params.title,
       price: Number(params.price),
-      typeName: params.type,
-      type: 1,
+      typeName: params.typename,
+      type: params.type,
       madeof: params.madeof,
       isNew: true,
       stocknum: 999,
       isInStock: true,
+      bigType: params.bigType,
+      bigTypeName: params.bigTypeName,
     },
   });
 

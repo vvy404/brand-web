@@ -15,7 +15,9 @@ const CreatePage: React.FC = () => {
 
   const [ typelist, setTypeList ] = useState<ProductFullCatogoryType[]>([]);
   const [ bigType, setBigType ] = useState<number>(1);
+  const [ bigTypeName, setBigTypeName ] = useState<string>("");
   const [ type, setType ] = useState<number>(1);
+  const [ typename, setTypeName ] = useState<string>("");
 
   const handleAddImage = () => {
     const len = imageArr.length;
@@ -101,33 +103,58 @@ const CreatePage: React.FC = () => {
       sizes: sizes.join('|'),
       title,
       type,
+      typename,
+      bigType,
       price,
       madeof,
-      bigType,
+      bigTypeName,
     }
     const finalParamsToString = JSON.stringify(finalParams);
-    const res = await createProduct(finalParamsToString)
+    const res = await createProduct(finalParamsToString);
+    if (res && !res.code) {
+      window.location.reload();
 
-    console.log('----formData res-----', res);
+    }
+
+    console.log('----formData res-----', finalParamsToString);
   }
 
   const handleTypeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
     console.log('---e', e.target.value);
-    setBigType(Number(e.target.value));
+    const val = e.target.value;
+    const id = val.split('|')[0];
+    const name = val.split('|')[1];
+    setBigType(Number(id));
+    setBigTypeName(name);
+    const bigTypeItem = typelist.find(item => item.id === Number(id))
+    if (bigTypeItem) {
+      setType(bigTypeItem.childtype[0].id);
+      setTypeName(bigTypeItem.childtype[0].typename);
+    }
+  
   }
 
   const handleChildTypeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     e.preventDefault();
-    console.log('---e', e.target.value);
-    setType(Number(e.target.value));
+    const val = e.target.value;
+    const id = val.split('|')[0];
+    const name = val.split('|')[1];
+    setType(Number(id));
+    setTypeName(name);
   }
 
   const getTypeList = async () => {
     const res = await getProducTypetListData();
     if (res && !res.code && res.data) {
-      setTypeList(res.data.list);
-      console.log(res.data.list);
+      const list = res.data.list;
+
+      setTypeList(list);
+      setBigType(list[0]?.id);
+      setBigTypeName(list[0]?.typename)
+      setType(list[0]?.childtype[0]?.id)
+      setTypeName(list[0]?.childtype[0]?.typename);
+      console.log(list);
     }
   }
 
@@ -143,7 +170,7 @@ const CreatePage: React.FC = () => {
             {
               imageArr.map((i, idx) => {
                 return (
-                  <input key={idx} type="text" placeholder="https://" className="border w-96 h-8 inline-block" onChange={handleImageArrInputChange} onBlur={(e) => handleImageArrInputBlur(idx, e)} />
+                  <input key={idx} type="text" placeholder="https://" className="border w-96 h-8 inline-block" onChange={handleImageArrInputChange} onBlur={(e) => handleImageArrInputBlur(idx, e)} required />
                 )
               })
             }
@@ -156,8 +183,8 @@ const CreatePage: React.FC = () => {
         <div>
           <div>sizes:</div>
           <div>
-            from: <input type="number" name="sizeStart" placeholder="35" />
-            to: <input type="number" name="sizeEnd" placeholder="40" />
+            from: <input type="number" name="sizeStart" placeholder="35" required />
+            to: <input type="number" name="sizeEnd" placeholder="40" required />
           </div>
         </div>
         <div>
@@ -166,7 +193,7 @@ const CreatePage: React.FC = () => {
             {
               colorArr.map((i, idx) => {
                 return (
-                  <input key={idx} type="text" placeholder="balck" className="border w-40 h-8 inline-block" onChange={handleColorArrInputChange} onBlur={(e) => handleColorArrInputBlur(idx, e)} />
+                  <input key={idx} type="text" placeholder="balck" className="border w-40 h-8 inline-block" onChange={handleColorArrInputChange} onBlur={(e) => handleColorArrInputBlur(idx, e)} required />
                 )
               })
             }
@@ -178,24 +205,24 @@ const CreatePage: React.FC = () => {
         </div>
         <div>
           <div>title:</div>
-          <input name="title" type="text" placeholder="English/ Russian" />
+          <input name="title" type="text" placeholder="English/ Russian" required />
         </div>
         <div>
           <div>type:</div>
-          <select name="category" onChange={handleTypeSelect}>
+          <select name="category" onChange={handleTypeSelect} value={`${bigType}|${bigTypeName}`}>
             {
               typelist.map(i => {
                 return (
-                  <option key={i.id} value={i.id}>{i.typename}</option>
+                  <option key={i.id} value={`${i.id}|${i.typename}`}>{i.typename}</option>
                 )
               })
             }
           </select>
-          <select name="type" onChange={handleChildTypeSelect}>
+          <select name="type" onChange={handleChildTypeSelect} value={`${type}|${typename}`}>
             {
               typelist.find(i => i.id === bigType)?.childtype.map(i => {
                 return (
-                  <option key={i.id} value={i.id}>{i.typename}</option>
+                  <option key={i.id} value={`${i.id}|${i.typename}`}>{i.typename}</option>
                 )
               })
             }
@@ -209,11 +236,11 @@ const CreatePage: React.FC = () => {
         </div>
         <div>
           <div>price:</div>
-          <input name="price" type="number" placeholder="1000" />SEK
+          <input name="price" type="number" placeholder="1000" required />SEK
         </div>
         <div>
           <div>madeof:</div>
-          <input name="madeof" type="text" placeholder="cotton" />
+          <input name="madeof" type="text" placeholder="cotton" required />
         </div>
         {/* <div>
           <div>small type:</div>

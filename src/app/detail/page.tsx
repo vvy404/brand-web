@@ -26,6 +26,7 @@ const Detail: React.FC<DetailPageProps> = () => {
   const [ isLike, setIsLike ] = useState(false);
   const [ recoList, setRecoList ] = useState<ProductType[]>([]);
 
+  const router = useRouter();
   const searchParams = useSearchParams();
   const productid = searchParams?.get('productid') || "1";
 
@@ -57,6 +58,10 @@ const Detail: React.FC<DetailPageProps> = () => {
     }
   }
 
+  const handleAddToCartDone = () => {
+    router.refresh();
+  }
+
   useEffect(() => {
     getDataFunc();
     getRecoList();
@@ -66,7 +71,7 @@ const Detail: React.FC<DetailPageProps> = () => {
     <div className="mt-28 mx-8 ">
       <div className="flex">
         <ImageDetail imgs={imageDetail} mainImg={mainImg} isLike={isLike}></ImageDetail>
-        <ProductInfos info={productInfo}></ProductInfos>
+        <ProductInfos info={productInfo} addToCartDone={handleAddToCartDone}></ProductInfos>
       </div>
       <Recommend list={recoList}></Recommend>
       <OtherReco></OtherReco>

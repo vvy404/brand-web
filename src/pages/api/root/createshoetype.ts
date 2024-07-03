@@ -19,26 +19,31 @@ const DETAILType = [
   {
     productcategoryid: 1,
     type: 1,
-    typename: 'sneakers'
+    typename: 'sneakers',
+    mainRecommend: true,
   },
   {
     productcategoryid: 1,
     type: 2,
-    typename: 'running shoes'
+    typename: 'running shoes',
+    mainRecommend: true,
   },
   {
     productcategoryid: 1,
     type: 3,
-    typename: 'tennis shoes'
+    typename: 'tennis shoes',
+    mainRecommend: true,
   },
   {
     productcategoryid: 1,
     type: 4,
-    typename: 'slip-on shoes'
+    typename: 'slip-on shoes',
+    mainRecommend: true,
   },{
     productcategoryid: 1,
     type: 5,
-    typename: 'shorts shoes'
+    typename: 'shorts shoes',
+    mainRecommend: true,
   },{
     productcategoryid: 1,
     type: 6,

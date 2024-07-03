@@ -1,13 +1,26 @@
 import Image from "next/image"
-import productArr from "./productarr"
-import { FavProductFullType, ProductColorType, ProductSizeType } from "@/lib/globalts"
+import { useState, useEffect } from "react"
 
+import productArr from "./productarr"
+import { FavProductFullType, ProductColorType, ProductSizeType, CartItemType } from "@/lib/globalts"
+
+type SizeInfoType = Omit<CartItemType, "id" | "userid">
 interface FavListProps {
   list: FavProductFullType[];
   handleDeleteItem: (item: FavProductFullType) => void;
+  handleAddToCart: (item: SizeInfoType) => void;
 }
 
-const FavList: React.FC<FavListProps> = ({ list, handleDeleteItem }) => {
+const FavList: React.FC<FavListProps> = ({ 
+  list, 
+  handleDeleteItem,
+  handleAddToCart,
+}) => { 
+  const [colorId, setColorId] = useState<number>(0);
+  const [color, setColor] = useState<string>("");
+  const [sizeId, setSizeId] = useState<number>(0);
+  const [size, setSize] = useState<string>("");
+
   const treemap = (arr: any[]) => {
     let res = [];
     let col1 = [];
@@ -36,6 +49,51 @@ const FavList: React.FC<FavListProps> = ({ list, handleDeleteItem }) => {
   }
   const finalArr = treemap(list);
   console.log('---finalArr', finalArr);
+
+  const handleAddToCartClick = (item: FavProductFullType) => {
+    const params = {
+      imgSrc: item.imgSrc,
+      color,
+      colorid: colorId,
+      size,
+      sizeid: sizeId,
+      quantity: 1,
+      madeof: "",
+      title: item.title,
+      price: item.price,
+      productid: item.productid,
+    }
+    handleAddToCart(params);
+    console.log('item', params)
+  }
+
+  const handleColorChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    const id = val.split("|")[0];
+    const color = val.split("|")[1];
+    setColor(color);
+    setColorId(Number(id));
+    console.log('eee111', e.target.value);
+  }
+
+  const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const val = e.target.value;
+    const id = val.split("|")[0];
+    const size = val.split("|")[1];
+    setSize(size);
+    setSizeId(Number(id));
+    console.log('eee22', e.target.value);
+  }
+  
+
+  useEffect(()=> {
+    setColorId(list[0]?.color[0].id);
+    setSizeId(list[0]?.size[0].id);
+    setColor(list[0]?.color[0].color);
+    setSize(list[0]?.size[0].size)
+
+  }, [list.length])
+  
   return (
     <div>
       <div className="flex flex-col items-center mb-16">
@@ -58,11 +116,11 @@ const FavList: React.FC<FavListProps> = ({ list, handleDeleteItem }) => {
                       <div className="text-[11px] mt-[2px]">{i.price} SEK</div>
                       <div className="flex">
                         <span>Colour</span>
-                        <select className="inline-block">
+                        <select className="inline-block" onChange={handleColorChange}>
                           {
                             i.color.map((icolor: ProductColorType) => {
                               return (
-                                <option key={icolor.id}>{icolor.color}</option>
+                                <option key={icolor.id} value={`${icolor.id}|${icolor.color}`}>{icolor.color}</option>
                               )
                             })
                           }
@@ -81,17 +139,17 @@ const FavList: React.FC<FavListProps> = ({ list, handleDeleteItem }) => {
                       </div> */}
                       <div className="flex items-center">
                         <div>size:</div>
-                        <select className="">
+                        <select className="" onChange={handleSizeChange}>
                           {
                             i.size.map((isize: ProductSizeType) => {
                               return (
-                                <option key={isize.id}>{isize.size}</option>
+                                <option key={isize.id} value={`${isize.id}|${isize.size}`}>{isize.size}</option>
                               )
                             })
                           }
                         </select>
                       </div>
-                      <button className="bg-black text-white py-4 mt-2">ADD TO CART</button>
+                      <button className="bg-black text-white py-4 mt-2" onClick={()=>handleAddToCartClick(i)}>ADD TO CART</button>
                       <div className="absolute top-2 right-4 w-4 h-4">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6" onClick={() =>handleDeleteItem(i)}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />

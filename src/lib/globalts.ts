@@ -21,10 +21,15 @@ export interface ProductType {
   imgSrc: string;
   title: string;
   type: number;
+  typeName: string;
+  bigType: number;
+  bigTypeName: string;
   isInStock: boolean;
   isLiked: boolean;
   isNew: boolean;
   price: number;
+  madeof: string;
+  stocknum?: number;
 };
 
 export interface FavProductType {
@@ -136,6 +141,7 @@ export interface ProductCategoryType {
   productcategoryid: number;
   type: number;
   typename: string;
+  mainRecommend: boolean;
 }
 
 export interface ProductFullCatogoryType extends ProductCategoryOverAllType {

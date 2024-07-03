@@ -22,7 +22,7 @@ const Paginator: React.FC<PaginatorProps> = ({
     <div className="flex flex-col items-center justify-center">
       {
         (currentPageIndex < pageTotal - 1) && (
-          <button className="bg-black text-white text-sm px-10 py-4" onClick={() => handleClickIndex(currentPageIndex - 1)}>Next Page</button>
+          <button className="bg-black text-white text-sm px-10 py-4" onClick={() => handleClickIndex(currentPageIndex + 1)}>Next Page</button>
         )
       }
       <div className="flex mt-6 text-sm justify-center items-center cursor-pointer">

@@ -2,6 +2,7 @@ import { ProductType, DefaultErrorType, ProductColorType, ProductInfoType, AjaxR
 
 interface GetProductArgus {
   type?: string;
+  bigType?: string;
   currentPageIndex: number;
   pageNum: number;
 }
@@ -14,12 +15,13 @@ interface ProductListResType {
 }
 
 
-export const getProductListData = async ({ 
+export const getProductListData = async ({
   type = "full-product",
   currentPageIndex,
   pageNum,
-}: GetProductArgus) : Promise<AjaxResType<ProductListResType, DefaultErrorType>> => {
-  const res = await fetch(`/api/getfullInfoList?type=${type}&currentPageIndex=${currentPageIndex}&pageNum=${pageNum}`);
+  bigType = "999",
+}: GetProductArgus): Promise<AjaxResType<ProductListResType, DefaultErrorType>> => {
+  const res = await fetch(`/api/getfullInfoList?type=${type}&bigType=${bigType}&currentPageIndex=${currentPageIndex}&pageNum=${pageNum}`);
   const repo = await res.json()
 
   return repo;

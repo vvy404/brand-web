@@ -4,7 +4,7 @@ interface AddCartRes {
   product: ProductType;
 }
 
-const addCart = async (param: string): Promise<AjaxResType<AddCartRes, DefaultErrorType>> => {
+export const addCart = async (param: string): Promise<AjaxResType<AddCartRes, DefaultErrorType>> => {
   const res = await fetch('/api/addCart', {
     method: 'POST',
     mode: "no-cors",
@@ -23,15 +23,41 @@ const addCart = async (param: string): Promise<AjaxResType<AddCartRes, DefaultEr
 
   } catch (error) {
     console.log('error', error)
-
+    return {
+      code: 1,
+      message: 'worng',
+      data: null,
+    }
 
   }
-  return {
-    code: 1,
-    message: 'worng',
-    data: null,
-  }
-
 }
 
-export default addCart
+export const deleteCart = async (param: number):Promise<AjaxResType<AddCartRes, DefaultErrorType>> => {
+
+  const res = await fetch('/api/deleteCart', {
+    method: 'POST',
+    mode: "no-cors",
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: String(param),
+  });
+
+  console.log('res', res);
+
+  try {
+    const repo = await res.json()
+    return repo;
+
+  } catch (error) {
+    console.log('error', error)
+    return {
+      code: 1,
+      message: 'worng',
+      data: null,
+    }
+
+  }
+}
+

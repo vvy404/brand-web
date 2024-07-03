@@ -5,7 +5,7 @@ interface CartListResType {
 }
 
 export const getCartListData = async () : Promise<AjaxResType<CartListResType, DefaultErrorType>> => {
-  const res = await fetch("http://localhost:3000/api/getCartList");
+  const res = await fetch("/api/getCartList");
   const repo = await res.json()
 
   return repo;

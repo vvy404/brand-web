@@ -1,29 +1,36 @@
 const sizeRange = [1, 2, 3, 4, 5, 6];
 import { ProductType, ProductColorType, ProductSizeType, ProductInfoType, CartItemType } from "@/lib/globalts"
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getCurrentUserInfo } from "@/apis/auth/getCurrentUserInto";
-import addCart from "@/apis/addCart";
+import {addCart} from "@/apis/addCart";
 
 type ProductInfoProps = {
   info: ProductInfoType | null,
+  addToCartDone: () => void;
 }
 
 type SizeInfoType = Omit<CartItemType, "id">
 
 export default function ProductInfos({
-  info
+  info,
+  addToCartDone,
 }: ProductInfoProps) {
-  const defalutColorId = info?.color[0]?.id;
+  
+  // const defalutColorId = info?.color[0]?.id;
   const [color, setColor] = useState<string>("");
-  const [currentColorID, setCurrentColorID] = useState<number>(defalutColorId || 0);
+  const [currentColorID, setCurrentColorID] = useState<number>(0);
   const [sizePairs, setSizePairs] = useState<SizeInfoType[]>([]);
   const [colorTotal , setColorTotal] = useState<any>({});
   let userid=0;
 
 
+
   const handleAddToCart = async () => {
     console.log('add to cart', JSON.stringify(sizePairs));
     const res = await addCart(JSON.stringify(sizePairs));
+    if ( res && !res.code) {
+      addToCartDone();
+    }
     console.log('add cart', res)
   }
 
@@ -93,18 +100,23 @@ export default function ProductInfos({
     getUserInfo();
   }, [])
 
+  useEffect(() => {
+    setCurrentColorID(info?.color[0].id || 0);
+    setColor(info?.color[0].color|| "");
+  }, [info?.color])
+
   return info ? (
     <div className="w-[34%] ml-[14%] mt-8text-[#1b1b1b]">
-      <div className="text-lg">{info.title}</div>
+      <div className="text-lg uppercase">{info.title}</div>
       <div>1000,00 SEK</div>
-      <div className="text-[#325D7B] text-xs pt-3 pb-4">ORGANIC COTTON</div>
+      <div className="text-[#325D7B] text-xs pt-3 pb-4 uppercase">{info.madeof}</div>
       <div className="text-xs">COLOUR</div>
       <div className="flex mt-2">
         {
           info.color.map(i => {
             return (
               <div className="relative">
-                <div key={i.id} className={`px-2 mr-4 border hover:bg-gray-700 hover:text-white border-amber-950 ${i.id === currentColorID ? 'bg-gray-700 text-white' : ''}`} onClick={() => handleSelectColorChange(i)}>
+                <div key={i.id} className={`px-2 mr-4 border cursor-pointer ${i.id === currentColorID ? 'bg-gray-700 text-white' : ''}`} onClick={() => handleSelectColorChange(i)}>
                   {i.color}
                 </div>
                 {colorTotal[i.id] && (<div className="absolute top-[-6px] px-1 right-2 h-4 text-xs bg-blue-500 text-white">{colorTotal[i.id]}</div>)}

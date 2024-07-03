@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import {useRouter, usePathname, useSearchParams} from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 import LoginComp from "@/components/login/LoginComp";
 import SearchContent from "@/components/public/SearchContent"
@@ -15,8 +15,8 @@ import deleteFavList from "@/apis/deleteFavList";
 
 const Products: React.FC = () => {
   const [productlist, setProductList] = useState<ProductInfoType[]>([]);
-  const [ currentPageIndex, setCurrentPageIndex ] = useState<number>(0);
-  const [ pageTotal, setPageTotal ] = useState<number>(1);
+  const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
+  const [pageTotal, setPageTotal] = useState<number>(1);
   const [isShowSignIn, setIsShowSignIn] = useState<boolean>(false);
   const [isUserSignIn, setUserSignIn] = useState<boolean>(false);
   const [userid, setUserId] = useState<number>(0);
@@ -28,11 +28,12 @@ const Products: React.FC = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const type = searchParams?.get('type') || "1";
+  const bigType = searchParams?.get('bigtype') || "999";
   console.log('pathnamepathname', pathname, searchParams?.get('type'));
 
   const getProductList = async (pageindex: number) => {
-    console.log('currentPageIndex',currentPageIndex)
-    const res = await getProductListData({ type, currentPageIndex: pageindex, pageNum: PAGENUM });
+    console.log('currentPageIndex', currentPageIndex)
+    const res = await getProductListData({ type, bigType, currentPageIndex: pageindex, pageNum: PAGENUM });
     if (res && !res.code && res.data) {
       const { list, currentPageIndex, pageTotal } = res.data;
       setProductList(list);
@@ -53,14 +54,14 @@ const Products: React.FC = () => {
     })
   }
 
-  const handleLikeClick = async (item : ProductInfoType, idx: number) => {
+  const handleLikeClick = async (item: ProductInfoType, idx: number) => {
     console.log('like id:', item);
     if (!isUserSignIn) {
       setIsShowSignIn(true);
       window.scrollTo(0, 0);
     } else {
       console.log('user has login');
-      const {id, imgSrc, title, price} = item;
+      const { id, imgSrc, title, price } = item;
       const params = {
         productid: id,
         imgSrc,
@@ -77,13 +78,13 @@ const Products: React.FC = () => {
         }
       } else {
         const res = await deleteFavList(String(id));
-        if(res && !res.code && res.data) {
+        if (res && !res.code && res.data) {
           const productlistCopy = [...productlist];
           productlistCopy[idx].isLiked = false;
           setProductList(productlistCopy);
         }
       }
-      
+
     }
   }
 
@@ -97,7 +98,7 @@ const Products: React.FC = () => {
 
   const checkUserLogin = async () => {
     const res = await getCurrentUserInfo();
-    if (res && !res.code ) {
+    if (res && !res.code) {
       setUserSignIn(true);
       setUserId(res.data?.userid || 0)
     } else {
@@ -108,6 +109,8 @@ const Products: React.FC = () => {
   const handleClickImage = (id: number) => {
     router.push(`/detail?productid=${id}`);
   }
+
+  const handleDeleteProduct = () => { }
 
 
   useEffect(() => {
@@ -126,15 +129,16 @@ const Products: React.FC = () => {
         handlePageIndexChange={handlePageIndexChange}
         handleLikeClick={handleLikeClick}
         handleClickImage={handleClickImage}
+        handleDeleteProduct={handleDeleteProduct}
       ></ProductList>
       <div id="__next">
-          <LoginComp
-            showSignUp={false}
-            showSignIn={isShowSignIn}
-            setMaskClose={handleShowPop}
-            setUserStatus={handleUserStatusChange}
-          ></LoginComp>
-        </div>
+        <LoginComp
+          showSignUp={false}
+          showSignIn={isShowSignIn}
+          setMaskClose={handleShowPop}
+          setUserStatus={handleUserStatusChange}
+        ></LoginComp>
+      </div>
     </div>
   )
 }

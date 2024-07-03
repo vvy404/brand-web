@@ -2,10 +2,14 @@ import Image from "next/image"
 import { CartItemType } from "@/lib/globalts"
 
 interface CartItemProps {
-  cartitem: CartItemType
+  cartitem: CartItemType;
+  handleDeleteCartItem: (id: number) => void;
 }
 
-const CartItem : React.FC<CartItemProps> = ({cartitem}) => {
+const CartItem : React.FC<CartItemProps> = ({
+  cartitem,
+  handleDeleteCartItem,
+}) => {
     return (
         <div className="flex justify-between">
             <div className="flex mt-3 mb-7">
@@ -31,10 +35,10 @@ const CartItem : React.FC<CartItemProps> = ({cartitem}) => {
                 </div>
             </div>
             <div className="flex flex-col justify-between items-end py-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 cursor-pointer" onClick={()=>handleDeleteCartItem(cartitem.id)}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>
-                <div className="text-xs">1000 SEK</div>
+                <div className="text-xs">{cartitem.price} SEK</div>
             </div>
         </div>
     )

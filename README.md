@@ -34,3 +34,35 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+ts
+Partial, Required, Pick, and Omit
+
+type AsyncResult<T, E> = { loading: boolean; data: T | null; error: E | null };
+
+const fetchUserData = (): AsyncResult<User[], string> => {
+  // Fetch user data and handle errors
+};
+
+7. Use Generic Components
+Create generic components to enhance reusability and type safety. Generic components can handle different data types while maintaining type checking at compile-time.
+interface ListItem<T> {
+  item: T;
+}
+
+const ListItemComponent: React.FC<ListItem<User>> = ({ item }) => {
+  // Render item
+};
+
+8. useMomo
+cache the result of a calculation between re-renders.
+
+import { useMemo } from 'react';
+
+function TodoList({ todos, tab }) {
+  const visibleTodos = useMemo(
+    () => filterTodos(todos, tab),
+    [todos, tab]
+  );
+  // ...
+}
