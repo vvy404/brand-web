@@ -28,6 +28,7 @@ const Products: React.FC = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const type = searchParams?.get('type') || "1";
+  const keyword = searchParams?.get('keyword') || "";
   const bigType = searchParams?.get('bigtype') || "999";
   console.log('pathnamepathname', pathname, searchParams?.get('type'));
 
@@ -116,7 +117,7 @@ const Products: React.FC = () => {
   useEffect(() => {
     getProductList(currentPageIndex);
     checkUserLogin();
-  }, [type])
+  }, [type, keyword])
   return (
     <div className="mt-28 mx-10 ">
       <SearchContent></SearchContent>

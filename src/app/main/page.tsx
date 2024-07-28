@@ -5,7 +5,6 @@ import OPage from "@/components/main/OPage"
 import MidPage from "@/components/main/MidPage"
 import LastVideo from "@/components/main/LastVideo"
 import SelectorBtns from "@/components/main/SelectorBtns"
-import LoginComp from "@/components/login/LoginComp"
 import { getProducTypetListData } from "@/apis/getProductTypeList"
 import {useRouter, usePathname, useSearchParams} from 'next/navigation'
 
@@ -63,6 +62,7 @@ const Index : React.FC = () => {
 
   const handleItemClick = (typeid: number) => {
     router.push(`/products?type=${typeid}`);
+    
   }
 
     useEffect(() => {
@@ -82,6 +82,7 @@ const Index : React.FC = () => {
             {/* <div id="__next">
                 <LoginComp></LoginComp>
             </div> */}
+            
         </div>
     )
 }       

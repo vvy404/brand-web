@@ -2,6 +2,8 @@
 // import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
+import { Suspense } from "react";
+import Loading from "./loading";
 // import Router from "next/router";
 
 import Header from '@/components/public/Header';
@@ -66,7 +68,10 @@ export default function RootLayout({
           onClickSignUp={handleSignUpClick}
           setUserStatus={handleUserStatusChange}
         ></Header>
-        {children}
+        <Suspense fallback={<Loading></Loading>}>
+          {children}
+          {/* <Loading></Loading> */}
+        </Suspense>
         <div id="__next">
           <LoginComp
             showSignUp={isShowSignUp}
@@ -76,6 +81,7 @@ export default function RootLayout({
           ></LoginComp>
         </div>
         <Footer></Footer>
+        <div id="__app-modal"></div>
       </body>
     </html>
   );

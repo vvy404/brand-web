@@ -16,8 +16,9 @@ export default async function handler(
   const bigType = Number(req.query.bigType);
   const pageNum = Number(req.query.pageNum);
   const pageIndex = Number(req.query.currentPageIndex);
+  const keyword = String(req.query.keyword);
   const {userid} = req.cookies;
-  let products = []; 
+  let products = [];
   if (type === -1) {
     products = await prisma.product.findMany({
       skip: pageIndex * pageNum,
@@ -40,6 +41,18 @@ export default async function handler(
       }
     });
   }
+
+  // if(keyword) {
+  //   products = await prisma.product.findMany({
+  //     where: {
+  //       title: {
+  //         contains: keyword,
+  //       },
+  //     },
+  //     skip: pageIndex * pageNum,
+  //     take: pageNum,
+  //   });
+  // }
 
   let productAll = [];
   if (type === -1) {

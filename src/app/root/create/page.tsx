@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { ProductFullCatogoryType } from "@/lib/globalts"
 import createProduct from "@/apis/createProduct"
 import { getProducTypetListData } from "@/apis/getProductTypeList"
+import ToastModal from "@/components/Modal"
 
 const CreatePage: React.FC = () => {
   // image
@@ -13,16 +14,17 @@ const CreatePage: React.FC = () => {
   const [colorArr, setColorArr] = useState<string[]>([""]);
   const [canAddColorArr, setCanAddColorArr] = useState<boolean>(false);
 
-  const [ typelist, setTypeList ] = useState<ProductFullCatogoryType[]>([]);
-  const [ bigType, setBigType ] = useState<number>(1);
-  const [ bigTypeName, setBigTypeName ] = useState<string>("");
-  const [ type, setType ] = useState<number>(1);
-  const [ typename, setTypeName ] = useState<string>("");
+  const [typelist, setTypeList] = useState<ProductFullCatogoryType[]>([]);
+  const [bigType, setBigType] = useState<number>(1);
+  const [bigTypeName, setBigTypeName] = useState<string>("");
+  const [type, setType] = useState<number>(1);
+  const [typename, setTypeName] = useState<string>("");
+  const [showToast , setShowToast] = useState<boolean>(false);
 
   const handleAddImage = () => {
     const len = imageArr.length;
     if (len > 0) {
-      if (imageArr[len-1]) {
+      if (imageArr[len - 1]) {
         setImageArr([...imageArr, ""]);
         setCanAddImgArr(false);
       } else {
@@ -46,7 +48,7 @@ const CreatePage: React.FC = () => {
     setImageArr(imageArrCopy);
     const len = imageArrCopy.length;
     if (len) {
-      if (imageArrCopy[len-1]) {
+      if (imageArrCopy[len - 1]) {
         setCanAddImgArr(true)
       }
     }
@@ -55,7 +57,7 @@ const CreatePage: React.FC = () => {
   const handleAddColor = () => {
     const len = colorArr.length;
     if (len > 0) {
-      if (colorArr[len-1]) {
+      if (colorArr[len - 1]) {
         setColorArr([...colorArr, ""]);
         setCanAddColorArr(false);
       } else {
@@ -79,12 +81,12 @@ const CreatePage: React.FC = () => {
     setColorArr(colorArrCopy);
     const len = colorArrCopy.length;
     if (len) {
-      if (colorArrCopy[len-1]) {
+      if (colorArrCopy[len - 1]) {
         setCanAddColorArr(true)
       }
     }
   }
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -94,7 +96,7 @@ const CreatePage: React.FC = () => {
     const price = formData.get("price");
     const madeof = formData.get("madeof");
     const sizes = [];
-    for (let i:any= sizeStart ; i<= sizeEnd; i++) {
+    for (let i: any = sizeStart; i <= sizeEnd; i++) {
       sizes.push(Number(i));
     }
     const finalParams = {
@@ -112,10 +114,11 @@ const CreatePage: React.FC = () => {
     const finalParamsToString = JSON.stringify(finalParams);
     const res = await createProduct(finalParamsToString);
     if (res && !res.code) {
-      window.location.reload();
-
+      setShowToast(true);
+      setTimeout(()=> {
+        window.location.reload();
+      }, 3000);
     }
-
     console.log('----formData res-----', finalParamsToString);
   }
 
@@ -132,7 +135,7 @@ const CreatePage: React.FC = () => {
       setType(bigTypeItem.childtype[0].id);
       setTypeName(bigTypeItem.childtype[0].typename);
     }
-  
+
   }
 
   const handleChildTypeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -163,7 +166,7 @@ const CreatePage: React.FC = () => {
   }, [])
   return (
     <div className="mt-24 w-full ml-28">
-      <form onSubmit={handleSubmit}> 
+      <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <div>images:</div>
           <div className="inline-block">
@@ -248,6 +251,9 @@ const CreatePage: React.FC = () => {
         </div> */}
         <button className="w-24 h-10 bg-black text-white" type="submit">create</button>
       </form>
+      <ToastModal
+        show={showToast}
+      >create product successfully!</ToastModal>
     </div>
   )
 }

@@ -97,8 +97,8 @@ const FavList: React.FC<FavListProps> = ({
   return (
     <div>
       <div className="flex flex-col items-center mb-16">
-        <div className="text-3xl">My favourites</div>
-        <div className="text-gray-500 pt-4">{productArr.length} ITEMS</div>
+        <div className="text-3xl uppercase">My favourites</div>
+        <div className="text-gray-500 pt-4">{list.length} ITEMS</div>
       </div>
       <div className="grid grid-cols-4 gap-6">
         {

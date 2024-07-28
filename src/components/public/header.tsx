@@ -8,6 +8,7 @@ import { MainProductType, MidProductType, ProductFullCatogoryType } from '@/lib/
 import logoutUser from "@/apis/auth/logout";
 import './header.css';
 import { useRouter } from 'next/navigation'
+import SearchComp from "../main/Search";
 
 interface HeaderProps {
   showUser: boolean;
@@ -27,6 +28,7 @@ const Header: React.FC<HeaderProps> = ({
   const [isContentVisible, setContentVisible] = useState(false);
   const [categorylist, setCategoryList] = useState<ProductFullCatogoryType[]>([]);
   const [ cartdata, setCartData ] = useState<number>(0)
+  const [ isShowSearchInput, setShowSearchInput ] = useState<boolean>(false);
 
   const handleMouseOver = (event: React.MouseEvent) => {
     // console.log(event.currentTarget);
@@ -80,8 +82,18 @@ const Header: React.FC<HeaderProps> = ({
       window.location.href = '/main';
     }
   }
+  const handleClickSearchWrapper = () => {
+    setShowSearchInput(false)
+  }
   const handleCartIconClick = () => {
     router.push('/cart');
+  }
+  const handleSearchClick = () => {
+    setShowSearchInput(!isShowSearchInput);
+  }
+  const handleSearch = (val: string) => {
+    console.log('handleSearch', val);
+    router.replace(`/products?keyword=${val}`);
   }
   useEffect(() => {
     getCategoryData();
@@ -106,7 +118,7 @@ const Header: React.FC<HeaderProps> = ({
           })}
         </div>
         <div className="flex h-16 items-center text-xs w-[400px] justify-end space-x-4">
-          <div className="flex items-center pl-3">
+          <div className="flex items-center pl-3" onClick={handleSearchClick}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-4">
               <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
             </svg>
@@ -153,6 +165,9 @@ const Header: React.FC<HeaderProps> = ({
             )
           })
         }
+      </div>
+      <div>
+      <SearchComp show={isShowSearchInput} handleClickSearchWrapper={handleClickSearchWrapper} handleSearch={handleSearch} />
       </div>
     </div>
   )
